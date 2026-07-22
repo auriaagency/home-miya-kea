@@ -1,0 +1,1016 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Miya Kea — Própolis Premium & Colágenos de Alta Qualidade</title>
+  <meta name="description" content="Descubra o poder da natureza com Miya Kea. Própolis premium e colágenos para sua saúde e beleza.">
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,300;1,9..144,400;1,9..144,500&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Swiper CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
+  <style>
+    /* ══════════════════════════════════════════
+       DESIGN TOKENS — MIYA KEA
+    ══════════════════════════════════════════ */
+    :root {
+      --bg-1: #C9B9A7;
+      --bg-2: #EBDFCF;
+      --bg-3: #F2F2F2;
+      --sage: #B3BDA3;
+      --forest: #7B8672;
+      --brown: #897A6B;
+      --ink: #333333;
+      --text: var(--ink);
+      --text-mid: rgba(51, 51, 51, 0.62);
+      --text-faint: rgba(51, 51, 51, 0.40);
+      
+      --serif: 'Fraunces', Georgia, serif;
+      --sans: 'Inter', system-ui, sans-serif;
+      
+      --r-sm: 0.5rem;
+      --r-md: 1rem;
+      --r-lg: 1.5rem;
+      --r-xl: 2rem;
+      --r-full: 9999px;
+      
+      --ease-expo: cubic-bezier(0.16, 1, 0.3, 1);
+      --dur-fast: 180ms;
+      --dur-base: 300ms;
+      --dur-slow: 500ms;
+      
+      --header-h: 64px;
+      --announce-h: 36px;
+    }
+
+    /* ══════════════════════════════════════════
+       RESET & BASE
+    ══════════════════════════════════════════ */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    
+    html {
+      font-size: 16px;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    body {
+      font-family: var(--sans);
+      background: var(--bg-3);
+      color: var(--ink);
+      overflow-x: hidden;
+      width: 100%;
+    }
+    
+    ::selection {
+      background: var(--brown);
+      color: #fff;
+    }
+
+    img { max-width: 100%; display: block; }
+    a { text-decoration: none; color: inherit; }
+    button { background: none; border: none; cursor: pointer; font: inherit; }
+    ul { list-style: none; }
+    
+    .font-serif-d { font-family: var(--serif); }
+    
+    /* UTILITIES */
+    .container {
+      width: 100%;
+      padding: 0 20px;
+      margin: 0 auto;
+    }
+    @media (min-width: 768px) {
+      .container { padding: 0 40px; }
+    }
+    @media (min-width: 1280px) {
+      .container { max-width: 1280px; }
+    }
+
+    /* ══════════════════════════════════════════
+       ANNOUNCE BAR
+    ══════════════════════════════════════════ */
+    .announce-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: var(--announce-h);
+      background: var(--ink);
+      color: var(--bg-3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.68rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      z-index: 1000;
+      transition: transform var(--dur-slow) var(--ease-expo);
+    }
+    .announce-bar strong { color: var(--brown); font-weight: 600; margin-left: 4px; }
+
+    /* ══════════════════════════════════════════
+       HEADER
+    ══════════════════════════════════════════ */
+    .header {
+      position: fixed;
+      top: var(--announce-h);
+      left: 0;
+      right: 0;
+      height: var(--header-h);
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(51, 51, 51, 0.06);
+      z-index: 999;
+      transition: all var(--dur-slow) var(--ease-expo);
+    }
+    .header.scrolled {
+      top: 0;
+      background: rgba(255, 255, 255, 0.95);
+      box-shadow: 0 4px 32px rgba(51, 51, 51, 0.06);
+    }
+    
+    .header-inner {
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    
+    /* Mobile Menu Toggle */
+    .menu-toggle {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      width: 24px;
+      height: 24px;
+      justify-content: center;
+      color: var(--ink);
+    }
+    .menu-toggle span {
+      display: block;
+      width: 100%;
+      height: 1.5px;
+      background: currentColor;
+      transition: all var(--dur-fast);
+      border-radius: var(--r-full);
+    }
+    
+    @media (min-width: 1024px) {
+      .menu-toggle { display: none; }
+      .header-inner {
+        display: grid;
+        grid-template-columns: 1fr auto 1fr;
+      }
+    }
+
+    .header-logo img {
+      height: 22px;
+      width: auto;
+    }
+    @media (min-width: 1024px) {
+      .header-logo { justify-self: start; }
+      .header-logo img { height: 26px; }
+    }
+
+    /* Navigation */
+    .header-nav {
+      display: none;
+    }
+    @media (min-width: 1024px) {
+      .header-nav {
+        display: flex;
+        align-items: center;
+        gap: 24px;
+        justify-self: center;
+        list-style: none;
+      }
+      .header-nav > li { position: relative; }
+      .header-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        font-size: 0.82rem;
+        font-weight: 400;
+        color: var(--ink);
+        position: relative;
+        padding: 20px 0;
+        letter-spacing: 0.01em;
+      }
+      .header-link::after {
+        content: '';
+        position: absolute;
+        bottom: 14px;
+        left: 0;
+        width: 100%;
+        height: 1.5px;
+        background: var(--ink);
+        transform: scaleX(0);
+        transform-origin: right;
+        transition: transform var(--dur-base) var(--ease-expo);
+      }
+      .header-link:hover::after {
+        transform: scaleX(1);
+        transform-origin: left;
+      }
+      .header-link svg { flex-shrink: 0; opacity: 0.55; transition: transform var(--dur-fast); }
+      .header-nav > li:hover .header-link svg { transform: rotate(180deg); opacity: 0.85; }
+
+      /* Dropdowns */
+      .nav-dropdown {
+        position: absolute;
+        top: calc(100% - 14px);
+        left: 50%;
+        transform: translateX(-50%) translateY(-8px);
+        background: #fff;
+        border: 1px solid rgba(51, 51, 51, 0.09);
+        border-radius: var(--r-md);
+        box-shadow: 0 12px 40px rgba(51, 51, 51, 0.10);
+        padding: 8px 0;
+        min-width: 200px;
+        opacity: 0;
+        pointer-events: none;
+        transition: all var(--dur-base) var(--ease-expo);
+        z-index: 100;
+      }
+      .header-nav > li:hover .nav-dropdown {
+        opacity: 1;
+        pointer-events: all;
+        transform: translateX(-50%) translateY(0);
+      }
+      .nav-dropdown a {
+        display: block;
+        padding: 10px 20px;
+        font-size: 0.82rem;
+        color: var(--ink);
+        white-space: nowrap;
+        transition: background var(--dur-fast), color var(--dur-fast);
+      }
+      .nav-dropdown a:hover {
+        background: var(--bg-2);
+        color: var(--brown);
+      }
+      .nav-dropdown-divider {
+        height: 1px;
+        background: rgba(51, 51, 51, 0.07);
+        margin: 6px 0;
+      }
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    @media (min-width: 1024px) {
+      .header-actions { justify-self: end; gap: 20px; }
+    }
+    .header-icon {
+      color: var(--ink);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: color var(--dur-fast), transform var(--dur-fast);
+    }
+    .header-icon:hover { 
+      color: var(--brown);
+      transform: scale(1.1);
+    }
+    .cart-wrapper {
+      position: relative;
+    }
+    .cart-badge {
+      position: absolute;
+      top: -4px;
+      right: -6px;
+      background: var(--brown);
+      color: #fff;
+      font-size: 0.6rem;
+      font-weight: 600;
+      width: 16px;
+      height: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+    }
+
+    /* ══════════════════════════════════════════
+       HERO CAROUSEL SECTION
+    ══════════════════════════════════════════ */
+    .hero {
+      position: relative;
+      width: 100%;
+      height: 100svh;
+      min-height: 600px;
+      background: var(--bg-1);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .swiper-hero {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+    
+    .swiper-slide {
+      position: relative;
+      overflow: hidden;
+      background-color: var(--bg-1);
+    }
+    
+    /* Slide Background */
+    .slide-bg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      transform: scale(1.15);
+      will-change: transform;
+      transform-origin: center;
+    }
+    
+    /* Dark Overlay for readability */
+    .slide-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to bottom,
+        rgba(0,0,0,0.1) 0%,
+        rgba(0,0,0,0.2) 40%,
+        rgba(0,0,0,0.7) 100%
+      );
+      z-index: 1;
+    }
+    @media (min-width: 768px) {
+      .slide-overlay {
+        background: linear-gradient(
+          to right,
+          rgba(0,0,0,0.7) 0%,
+          rgba(0,0,0,0.3) 50%,
+          rgba(0,0,0,0.1) 100%
+        );
+      }
+    }
+    
+    /* Slide Content Container */
+    .slide-content {
+      position: absolute;
+      z-index: 2;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      padding: 0 24px 80px 24px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      color: #fff;
+    }
+    @media (min-width: 768px) {
+      .slide-content {
+        padding: 0 60px;
+        top: 50%;
+        bottom: auto;
+        transform: translateY(-50%);
+        max-width: 700px;
+      }
+    }
+    @media (min-width: 1280px) {
+      .slide-content {
+        padding: 0 100px;
+        max-width: 850px;
+      }
+    }
+
+
+
+    /* Typography */
+    .slide-title {
+      font-size: clamp(2.8rem, 8vw, 5.5rem);
+      font-weight: 400;
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      margin-bottom: 16px;
+      perspective: 1000px;
+    }
+    .slide-title em {
+      font-style: italic;
+      color: var(--bg-2);
+      font-weight: 300;
+    }
+    
+    .slide-desc {
+      font-size: 1.05rem;
+      line-height: 1.6;
+      color: rgba(255, 255, 255, 0.85);
+      margin-bottom: 36px;
+      max-width: 95%;
+    }
+    @media (min-width: 768px) {
+      .slide-desc { font-size: 1.15rem; max-width: 500px; margin-bottom: 48px; }
+    }
+
+    /* Primary CTA Button */
+    .btn-hero {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      background: #fff;
+      color: var(--ink);
+      font-size: 0.875rem;
+      font-weight: 600;
+      padding: 16px 36px;
+      border-radius: var(--r-full);
+      position: relative;
+      overflow: hidden;
+      transition: all var(--dur-base) var(--ease-expo);
+      border: none;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .btn-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: var(--bg-2);
+      transform: translateY(100%);
+      transition: transform var(--dur-base) var(--ease-expo);
+      border-radius: inherit;
+    }
+    .btn-hero:hover::before {
+      transform: translateY(0);
+    }
+    .btn-hero span, .btn-hero i {
+      position: relative;
+      z-index: 1;
+    }
+    .btn-hero:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 16px 40px rgba(0,0,0,0.25);
+    }
+    .btn-hero:active {
+      transform: translateY(-1px) scale(0.98);
+    }
+
+    /* Custom Pagination (Progress Bars) */
+    .swiper-pagination-hero {
+      position: absolute;
+      bottom: 24px !important;
+      left: 50% !important;
+      transform: translateX(-50%);
+      z-index: 10;
+      display: flex;
+      gap: 8px;
+    }
+    @media (min-width: 768px) {
+      .swiper-pagination-hero {
+        bottom: 40px !important;
+        left: 60px !important;
+        transform: none;
+      }
+    }
+    @media (min-width: 1280px) {
+      .swiper-pagination-hero {
+        left: 100px !important;
+      }
+    }
+    .swiper-pagination-hero .swiper-pagination-bullet {
+      width: 48px;
+      height: 3px;
+      border-radius: 2px;
+      background: rgba(255, 255, 255, 0.25);
+      opacity: 1;
+      margin: 0 !important;
+      position: relative;
+      overflow: hidden;
+      transition: all var(--dur-base);
+      cursor: pointer;
+    }
+    @media (min-width: 768px) {
+      .swiper-pagination-hero .swiper-pagination-bullet {
+        width: 72px;
+      }
+    }
+    
+    .swiper-pagination-hero .swiper-pagination-bullet::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 0%;
+      background: #fff;
+    }
+    .swiper-pagination-hero .swiper-pagination-bullet-active {
+      background: rgba(255, 255, 255, 0.4);
+    }
+    .swiper-pagination-hero .swiper-pagination-bullet-active::after {
+      width: 100%;
+      transition: width 6s linear; /* Matches autoplay delay */
+    }
+
+
+
+    /* SplitType Words */
+    .char {
+      transform: translateY(100%);
+      opacity: 0;
+      will-change: transform, opacity, filter;
+    }
+
+    /* ── Imported DS Components ── */
+    /* Buttons */
+    .btn {
+      display:inline-flex; align-items:center; justify-content:center; gap:8px;
+      border-radius:var(--r-full); font-weight:500; font-size:.875rem;
+      padding:12px 28px; cursor:pointer; position:relative; overflow:hidden;
+      transition:all var(--dur-base) var(--ease-expo); user-select:none;
+      border:none;
+    }
+    .btn:active { transform:scale(.94) }
+    .btn-primary { background:var(--ink); color:var(--bg-3) }
+    .btn-primary::after {
+      content:''; position:absolute; inset:0; border-radius:inherit;
+      background:var(--brown); transform:translateX(-102%);
+      transition:transform var(--dur-slow) var(--ease-expo)
+    }
+    .btn-primary:hover { box-shadow:0 16px 48px rgba(137,122,107,.30); transform:translateY(-2px) }
+    .btn-primary:hover::after { transform:translateX(0) }
+    .btn-primary>* { position:relative; z-index:1 }
+    
+    .btn-secondary {
+      background:transparent; border:1.5px solid rgba(51,51,51,.18); color:var(--ink)
+    }
+    .btn-secondary:hover { background:var(--ink); color:var(--bg-3); border-color:var(--ink); box-shadow:0 12px 40px rgba(51,51,51,.15) }
+
+    /* Badges */
+    .badge {
+      display:inline-flex; align-items:center; gap:4px;
+      padding:3px 12px; border-radius:var(--r-full);
+      font-size:.7rem; font-weight:600; text-transform:uppercase; letter-spacing:.08em;
+      transition:all var(--dur-fast)
+    }
+    .badge-primary { background:rgba(137,122,107,.14); color:var(--brown) }
+    .badge-outline { background:transparent; border:1px solid rgba(51,51,51,.20); color:var(--text-mid) }
+    .badge-dark { background:var(--ink); color:var(--bg-3) }
+
+    /* Image Card */
+    .image-card { border-radius:var(--r-xl); overflow:hidden; position:relative; display:block }
+    .image-card img { width:100%; height:100%; object-fit:cover; transition:transform 1.4s var(--ease-expo) }
+    .image-card:hover img { transform:scale(1.05) }
+    .image-overlay { position:absolute; inset:0; background:linear-gradient(to top,rgba(51,51,51,.35),transparent); opacity:0; transition:opacity .7s }
+    .image-card:hover .image-overlay { opacity:1 }
+    
+    /* Card Glass */
+    .card-glass {
+      border-radius:var(--r-xl); background:rgba(51,51,51,0.25);
+      backdrop-filter:blur(24px); -webkit-backdrop-filter:blur(24px);
+      border:1px solid rgba(255,255,255,0.15); padding:32px;
+      transition:transform var(--dur-slow) var(--ease-expo), box-shadow var(--dur-slow)
+    }
+    
+    .card-glass .badge {
+      background:rgba(255,255,255,0.1); color:#fff; border:1px solid rgba(255,255,255,0.2);
+    }
+    .card-glass .badge:hover { background:rgba(255,255,255,0.2); transform:translateY(-1px); }
+
+    .card-glass .btn-secondary {
+      background:rgba(255,255,255,0.1); border-color:rgba(255,255,255,0.2); color:#fff;
+    }
+    .card-glass .btn-secondary:hover {
+      background:#fff; color:var(--ink); border-color:#fff; box-shadow:0 12px 40px rgba(255,255,255,0.15);
+    }
+
+    /* Fl-card effect */
+    .fl-card { position: relative }
+    .fl-card::before {
+      content:''; position:absolute; inset:-1px; border-radius:inherit;
+      background:linear-gradient(45deg, transparent, rgba(255,255,255,.2), transparent);
+      z-index:-1; opacity:0; transition:opacity .8s
+    }
+    .fl-card:hover::before { opacity:1 }
+
+    /* Product mini card */
+    .product-mini-card {
+      position:absolute; bottom:16px; left:16px; right:16px;
+      border-radius:1rem; background:rgba(242,242,242,.88); backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px);
+      padding:14px 16px; display:flex; align-items:center; justify-content:space-between; gap:12px;
+      transition:transform var(--dur-slow) var(--ease-expo);
+      box-shadow:0 8px 32px rgba(51,51,51,.10)
+    }
+    .image-card:hover .product-mini-card { transform:translateY(-4px) }
+    
+    /* Collection Layout */
+    .collection-grid { display: grid; grid-template-columns: 1fr; gap: 24px; }
+    .collection-stack { display: grid; grid-template-columns: 1fr; gap: 24px; }
+    @media (min-width: 1024px) {
+      .collection-grid { grid-template-columns: 1.5fr 1fr; gap: 24px; }
+      .collection-highlight { height: 100%; }
+      .collection-highlight .image-card { min-height: 100%; }
+      .collection-stack { display: flex; flex-direction: column; justify-content: space-between; gap: 24px; height: 100%; }
+      .collection-stack .image-card { height: calc(50% - 12px); }
+    }
+
+    /* Layout specific to Goals section */
+    .section-goals { padding: 100px 0; background: var(--bg-3); }
+    .goals-header { margin-bottom: 48px; max-width: 640px; }
+    .goals-title {
+      font-size: clamp(2rem, 5vw, 2.5rem);
+      font-weight: 400; color: var(--ink); margin-bottom: 16px;
+      line-height: 1.1; letter-spacing: -0.01em;
+    }
+    .goals-desc { font-size: 1.05rem; color: var(--text-mid); line-height: 1.6; }
+    .goals-grid { display: grid; grid-template-columns: 1fr; gap: 24px; }
+    @media (min-width: 768px) { .goals-grid { grid-template-columns: 1fr 1fr; } }
+  </style>
+</head>
+<body>
+
+  <!-- ANNOUNCEMENT BAR -->
+  <div class="announce-bar" id="announceBar">
+    <div>10% OFF na 1ª compra com o cupom: <strong>MIYA10</strong></div>
+  </div>
+
+  <!-- HEADER -->
+  <header class="header" id="mainHeader">
+    <div class="container header-inner">
+      
+      <!-- Logo -->
+      <a href="#" class="header-logo">
+        <img src="DS/assets/logo-miya-preta.png" alt="Miya Kea Logo">
+      </a>
+
+      <!-- Nav (Desktop) -->
+      <ul class="header-nav">
+        <li>
+          <a href="#" class="header-link">Sobre a Miya Kea</a>
+        </li>
+        <li>
+          <a href="#" class="header-link">
+            Produtos
+            <svg width="10" height="6" viewBox="0 0 10 6" fill="none"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+          <div class="nav-dropdown">
+            <a href="#">Colágeno Premium</a>
+            <a href="#">Própolis Green</a>
+            <a href="#">Ritual Kit</a>
+            <div class="nav-dropdown-divider"></div>
+            <a href="#">Ver todos</a>
+          </div>
+        </li>
+        <li>
+          <a href="#" class="header-link">
+            O que te incomoda?
+            <svg width="10" height="6" viewBox="0 0 10 6" fill="none"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+          <div class="nav-dropdown">
+            <a href="#">Pele sem brilho</a>
+            <a href="#">Cabelos fracos</a>
+            <a href="#">Articulações</a>
+            <a href="#">Imunidade</a>
+          </div>
+        </li>
+        <li>
+          <a href="#" class="header-link">
+            Clube de Assinatura
+            <svg width="10" height="6" viewBox="0 0 10 6" fill="none"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+          <div class="nav-dropdown">
+            <a href="#">Como funciona</a>
+            <a href="#">Planos</a>
+            <a href="#">Benefícios</a>
+          </div>
+        </li>
+        <li>
+          <a href="#" class="header-link">Onde Encontrar</a>
+        </li>
+        <li>
+          <a href="#" class="header-link">Contato</a>
+        </li>
+      </ul>
+
+      <!-- Actions -->
+      <div class="header-actions">
+        <button class="header-icon" aria-label="Buscar">
+          <i data-lucide="search" width="20" height="20"></i>
+        </button>
+        <button class="header-icon" aria-label="Conta">
+          <i data-lucide="user" width="20" height="20"></i>
+        </button>
+        <button class="header-icon cart-wrapper" aria-label="Carrinho">
+          <i data-lucide="shopping-bag" width="20" height="20"></i>
+          <span class="cart-badge">2</span>
+        </button>
+        <!-- Mobile Menu Toggle -->
+        <button class="menu-toggle" aria-label="Abrir menu">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+      
+    </div>
+  </header>
+
+  <!-- HERO SECTION -->
+  <section class="hero" id="heroSection">
+    
+    <div class="swiper swiper-hero">
+      <div class="swiper-wrapper">
+        
+        <!-- Slide 1 -->
+        <div class="swiper-slide">
+          <img src="assets/banner-propolis-extrato.jpg" class="slide-bg" alt="Extrato de Própolis Blend" data-swiper-parallax="20%">
+          <div class="slide-overlay"></div>
+          
+          <div class="slide-content">
+            <h1 class="slide-title font-serif-d">
+              Harmonia entre<br>
+              <em>Verde e Vermelho</em>
+            </h1>
+            
+            <p class="slide-desc">
+              Extrato exclusivo combinando as propriedades antioxidantes dos própolis verde e vermelho. O máximo da natureza em gotas.
+            </p>
+            
+            <button class="btn-hero">
+              <span>Explorar Benefícios</span>
+              <i data-lucide="arrow-right" width="18" height="18"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Slide 2 -->
+        <div class="swiper-slide">
+          <img src="assets/banner-propolis-spray.jpg" class="slide-bg" alt="Própolis Spray" data-swiper-parallax="20%">
+          <div class="slide-overlay"></div>
+          
+          <div class="slide-content">
+            <h1 class="slide-title font-serif-d">
+              Composto de<br>
+              <em>Própolis e Mel</em>
+            </h1>
+            
+            <p class="slide-desc">
+              O frescor do alecrim unido à ação protetora do própolis em formato spray, proporcionando cuidado contínuo e bem-estar.
+            </p>
+            
+            <button class="btn-hero">
+              <span>Ver Produto</span>
+              <i data-lucide="arrow-right" width="18" height="18"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Slide 3 -->
+        <div class="swiper-slide">
+          <img src="assets/banner-propolis-capsulas.jpg" class="slide-bg" alt="Própolis Premium em Cápsulas" data-swiper-parallax="20%">
+          <div class="slide-overlay"></div>
+          
+          <div class="slide-content">
+            <h1 class="slide-title font-serif-d">
+              O poder vital do<br>
+              <em>Própolis Verde</em>
+            </h1>
+            
+            <p class="slide-desc">
+              Cápsulas concentradas de extrato selecionado para blindar sua saúde e fortalecer a imunidade diariamente com a mais alta pureza.
+            </p>
+            
+            <button class="btn-hero">
+              <span>Descobrir Fórmula</span>
+              <i data-lucide="arrow-right" width="18" height="18"></i>
+            </button>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Pagination -->
+      <div class="swiper-pagination-hero"></div>
+      
+    </div>
+
+
+  </section>
+
+  <!-- GOALS SECTION -->
+  <section class="section-goals" id="goalsSection">
+    <div class="container">
+      
+      <div class="goals-header" data-reveal>
+        <span class="badge badge-primary" style="margin-bottom: 24px; padding: 6px 14px;">Cuidado Personalizado</span>
+        <h2 class="goals-title font-serif-d">O que você deseja transformar hoje?</h2>
+        <p class="goals-desc">
+          Nossas fórmulas premium foram desenvolvidas para se adaptarem perfeitamente às necessidades únicas da sua saúde e beleza. Descubra o seu ritual.
+        </p>
+      </div>
+
+      <div class="goals-grid">
+        
+        <!-- Própolis Card -->
+        <a href="#" class="image-card fl-card" data-reveal style="height: 600px;">
+          <img src="assets/banner-propolis-capsulas-card.jpg" alt="Própolis Verde" style="object-position: center 30%;">
+          <div class="image-overlay" style="background: linear-gradient(to top, rgba(0,0,0,0.8), transparent 60%); opacity: 1;"></div>
+          
+          <div style="position:absolute; bottom:24px; left:24px; right:24px;">
+            <div class="card-glass">
+              <span class="badge" style="margin-bottom: 20px;">
+                Imunidade & Equilíbrio
+              </span>
+              
+              <h3 class="font-serif-d" style="font-size: 1.35rem; color: #fff; margin-bottom: 24px; font-weight: 400; line-height: 1.3;">
+                A pureza e a potência verde para blindar sua saúde e restaurar a sua vitalidade.
+              </h3>
+              
+              <div class="btn btn-secondary" style="width: fit-content;">
+                <span>Explorar Própolis</span>
+                <i data-lucide="arrow-right" width="18" height="18"></i>
+              </div>
+            </div>
+          </div>
+        </a>
+
+        <!-- Colágenos Card -->
+        <a href="#" class="image-card fl-card" data-reveal style="height: 600px;">
+          <img src="assets/imagem-propolis-todos.png" alt="Colágenos" style="object-position: center 30%;">
+          <div class="image-overlay" style="background: linear-gradient(to top, rgba(0,0,0,0.8), transparent 60%); opacity: 1;"></div>
+          
+          <div style="position:absolute; bottom:24px; left:24px; right:24px;">
+            <div class="card-glass">
+              <span class="badge" style="margin-bottom: 20px;">
+                Beleza & Articulações
+              </span>
+              
+              <h3 class="font-serif-d" style="font-size: 1.35rem; color: #fff; margin-bottom: 24px; font-weight: 400; line-height: 1.3;">
+                Nutrição avançada de alta absorção para firmeza, brilho e liberdade de movimento.
+              </h3>
+              
+              <div class="btn btn-secondary" style="width: fit-content;">
+                <span>Explorar Colágenos</span>
+                <i data-lucide="arrow-right" width="18" height="18"></i>
+              </div>
+            </div>
+          </div>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="https://unpkg.com/split-type"></script>
+  <script src="https://unpkg.com/@studio-freight/lenis@1.0.39/dist/lenis.min.js"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <script>
+    // Initialize Lucide Icons
+    lucide.createIcons();
+
+    // Smooth Scrolling with Lenis
+    const lenis = new Lenis({
+      duration: 1.2,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), 
+      direction: 'vertical',
+      gestureDirection: 'vertical',
+      smooth: true,
+      mouseMultiplier: 1,
+      smoothTouch: false,
+      touchMultiplier: 2,
+      infinite: false,
+    });
+
+    function raf(time) {
+      lenis.raf(time);
+      requestAnimationFrame(raf);
+    }
+    requestAnimationFrame(raf);
+
+    // Header Scroll Effect
+    const header = document.getElementById('mainHeader');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) {
+        header.classList.add('scrolled');
+      } else {
+        header.classList.remove('scrolled');
+      }
+    });
+
+    // Swiper Carousel & GSAP Animations
+    document.addEventListener("DOMContentLoaded", () => {
+      // Register ScrollTrigger
+      gsap.registerPlugin(ScrollTrigger);
+
+      // Data Reveal Animation (for scroll entry effects)
+      const revealElements = document.querySelectorAll('[data-reveal]');
+      revealElements.forEach((el) => {
+        gsap.fromTo(el,
+          { opacity: 0, y: 40, filter: "blur(12px)" },
+          { 
+            opacity: 1, y: 0, filter: "blur(0px)",
+            duration: 1.1, ease: "power3.out",
+            scrollTrigger: { trigger: el, start: "top 88%", once: true }
+          }
+        );
+      });
+
+      // Setup SplitType for all titles
+      const titles = document.querySelectorAll('.slide-title');
+      titles.forEach(title => {
+        new SplitType(title, { types: 'chars, words' });
+      });
+
+      // Animation function for the active slide
+      const animateSlide = (activeSlide) => {
+        const chars = activeSlide.querySelectorAll('.char');
+        const desc = activeSlide.querySelector('.slide-desc');
+        const btn = activeSlide.querySelector('.btn-hero');
+        const bg = activeSlide.querySelector('.slide-bg');
+
+        // Reset elements
+        gsap.set([desc, btn], { opacity: 0, y: 30 });
+        gsap.set(chars, { opacity: 0, y: 100, filter: 'blur(12px)' });
+        gsap.set(bg, { scale: 1.15 });
+
+        const tl = gsap.timeline();
+
+        // Background slow scale effect (Pan/Zoom continuous)
+        gsap.to(bg, {
+          scale: 1,
+          duration: 10,
+          ease: "power1.out"
+        });
+
+        tl.to(chars, {
+          opacity: 1,
+          y: 0,
+          filter: 'blur(0px)',
+          duration: 1.2,
+          stagger: 0.02,
+          ease: "expo.out",
+          delay: 0.2
+        })
+        .to(desc, {
+          opacity: 1,
+          y: 0,
+          duration: 1,
+          ease: "power3.out"
+        }, "-=0.8")
+        .to(btn, {
+          opacity: 1,
+          y: 0,
+          duration: 0.8,
+          ease: "power3.out"
+        }, "-=0.7");
+      };
+
+      // Initialize Swiper
+      const swiper = new Swiper('.swiper-hero', {
+        effect: 'fade',
+        fadeEffect: { crossFade: true },
+        speed: 1200,
+        autoplay: {
+          delay: 6000,
+          disableOnInteraction: false,
+        },
+        pagination: {
+          el: '.swiper-pagination-hero',
+          clickable: true,
+        },
+        on: {
+          init: function() {
+            const activeSlide = this.slides[this.activeIndex];
+            setTimeout(() => animateSlide(activeSlide), 100);
+          },
+          slideChangeTransitionStart: function() {
+            const activeSlide = this.slides[this.activeIndex];
+            animateSlide(activeSlide);
+          }
+        }
+      });
+    });
+  </script>
+</body>
+</html>
