@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Colágeno Premium — Miya Kea</title>
+  <meta name="description" content="Colágeno marinho hidrolisado premium — 10g por porção, sabor Frutas Vermelhas e Uva. Programa de 10 dias para pele radiante e cabelos saudáveis.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,300;1,9..144,400;1,9..144,500&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-1: #C9B9A7;
+      --bg-2: #EBDFCF;
+      --bg-3: #F2F2F2;
+      --sage: #B3BDA3;
+      --forest: #7B8672;
+      --brown: #897A6B;
+      --ink: #333333;
+      --text: var(--ink);
+      --text-mid: rgba(51, 51, 51, 0.62);
+      --text-faint: rgba(51, 51, 51, 0.40);
+      
+      --serif: 'Fraunces', Georgia, serif;
+      --sans: 'Inter', system-ui, sans-serif;
+      
+      --r-sm: 0.5rem;
+      --r-md: 1rem;
+      --r-lg: 1.5rem;
+      --r-xl: 2rem;
+      --r-full: 9999px;
+      
+      --ease-expo: cubic-bezier(0.16, 1, 0.3, 1);
+      --dur-fast: 180ms;
+      --dur-base: 300ms;
+      --dur-slow: 500ms;
+      
+      --header-h: 64px;
+      --announce-h: 36px;
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    
+    html {
+      font-size: 16px;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    body {
+      font-family: var(--sans);
+      background: var(--bg-3);
+      color: var(--ink);
+      overflow-x: hidden;
+      width: 100%;
+    }
+    
+    ::selection {
+      background: var(--brown);
+      color: #fff;
+    }
+
+    img { max-width: 100%; display: block; }
+    a { text-decoration: none; color: inherit; }
+    button { background: none; border: none; cursor: pointer; font: inherit; }
+    ul { list-style: none; }
+    
+    .font-serif-d { font-family: var(--serif); }
+    
+    .container {
+      width: 100%;
+      padding: 0 20px;
+      margin: 0 auto;
+    }
+    @media (min-width: 768px) {
+      .container { padding: 0 40px; }
+    }
+    @media (min-width: 1280px) {
+      .container { max-width: 1280px; }
+    }
+
+    /* ══════════════════════════════════════════
+       ANNOUNCE BAR
+    ══════════════════════════════════════════ */
+    .announce-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: var(--announce-h);
+      background: var(--ink);
+      color: var(--bg-3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.68rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      z-index: 1000;
+      transition: transform var(--dur-slow) var(--ease-expo);
+    }
+    .announce-bar strong { color: var(--brown); font-weight: 600; margin-left: 4px; }
+
+    /* ══════════════════════════════════════════
+       HEADER
+    ══════════════════════════════════════════ */
+    .header {
+      position: fixed;
+      top: var(--announce-h);
+      left: 0;
+      right: 0;
+      height: var(--header-h);
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(51, 51, 51, 0.06);
+      z-index: 999;
+      transition: all var(--dur-slow) var(--ease-expo);
+    }
+    .header.scrolled {
+      top: 0;
+      background: rgba(255, 255, 255, 0.95);
+      box-shadow: 0 4px 32px rgba(51, 51, 51, 0.06);
+    }
+    
+    .header-inner {
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    
+    /* Mobile Menu Toggle */
+    .menu-toggle {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      width: 24px;
+      height: 24px;
+      justify-content: center;
+      color: var(--ink);
+    }
+    .menu-toggle span {
+      display: block;
+      width: 100%;
+      height: 1.5px;
+      background: currentColor;
+      transition: all var(--dur-fast);
+      border-radius: var(--r-full);
+    }
+    
+    @media (min-width: 1024px) {
+      .menu-toggle { display: none; }
+      .header-inner {
+        display: grid;
+        grid-template-columns: 1fr auto 1fr;
+      }
+    }
+
+    .header-logo img {
+      height: 22px;
+      width: auto;
+    }
+    @media (min-width: 1024px) {
+      .header-logo { justify-self: start; }
+      .header-logo img { height: 26px; }
+    }
+
+    /* Navigation */
+    .header-nav {
+      display: none;
+    }
+    @media (min-width: 1024px) {
+      .header-nav {
+        display: flex;
+        align-items: center;
+        gap: 24px;
+        justify-self: center;
+        list-style: none;
+      }
+      .header-nav > li { position: relative; }
+      .header-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        font-size: 0.82rem;
+        font-weight: 400;
+        color: var(--ink);
+        position: relative;
+        padding: 20px 0;
+        letter-spacing: 0.01em;
+      }
+      .header-link::after {
+        content: '';
+        position: absolute;
+        bottom: 14px;
+        left: 0;
+        width: 100%;
+        height: 1.5px;
+        background: var(--ink);
+        transform: scaleX(0);
+        transform-origin: right;
+        transition: transform var(--dur-base) var(--ease-expo);
+      }
+      .header-link:hover::after {
+        transform: scaleX(1);
+        transform-origin: left;
+      }
+      .header-link svg { flex-shrink: 0; opacity: 0.55; transition: transform var(--dur-fast); }
+      .header-nav > li:hover .header-link svg { transform: rotate(180deg); opacity: 0.85; }
+
+      /* Dropdowns */
+      .nav-dropdown {
+        position: absolute;
+        top: calc(100% - 14px);
+        left: 50%;
+        transform: translateX(-50%) translateY(-8px);
+        background: #fff;
+        border: 1px solid rgba(51, 51, 51, 0.09);
+        border-radius: var(--r-md);
+        box-shadow: 0 12px 40px rgba(51, 51, 51, 0.10);
+        padding: 8px 0;
+        min-width: 200px;
+        opacity: 0;
+        pointer-events: none;
+        transition: all var(--dur-base) var(--ease-expo);
+        z-index: 100;
+      }
+      .header-nav > li:hover .nav-dropdown {
+        opacity: 1;
+        pointer-events: all;
+        transform: translateX(-50%) translateY(0);
+      }
+      .nav-dropdown a {
+        display: block;
+        padding: 10px 20px;
+        font-size: 0.82rem;
+        color: var(--ink);
+        white-space: nowrap;
+        transition: background var(--dur-fast), color var(--dur-fast);
+      }
+      .nav-dropdown a:hover {
+        background: var(--bg-2);
+        color: var(--brown);
+      }
+      .nav-dropdown-divider {
+        height: 1px;
+        background: rgba(51, 51, 51, 0.07);
+        margin: 6px 0;
+      }
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    @media (min-width: 1024px) {
+      .header-actions { justify-self: end; gap: 20px; }
+    }
+    .header-icon {
+      color: var(--ink);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: color var(--dur-fast), transform var(--dur-fast);
+    }
+    .header-icon:hover { 
+      color: var(--brown);
+      transform: scale(1.1);
+    }
+    .cart-wrapper {
+      position: relative;
+    }
+    .cart-badge {
+      position: absolute;
+      top: -4px;
+      right: -6px;
+      background: var(--brown);
+      color: #fff;
+      font-size: 0.6rem;
+      font-weight: 600;
+      width: 16px;
+      height: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+    }
+
+    /* BREADCRUMB */
+    .breadcrumb { padding: calc(var(--announce-h) + var(--header-h) + 24px) 0 0; display: flex; align-items: center; gap: 8px; font-size: 0.72rem; color: var(--text-faint); }
+    .breadcrumb a:hover { color: var(--brown); }
+    .breadcrumb-sep { opacity: .4; }
+
+    /* PRODUCT HERO */
+    .product-hero{padding:32px 0 80px}
+    .product-layout{display:grid;grid-template-columns:1fr;gap:48px;align-items:start}
+    @media(min-width:900px){.product-layout{grid-template-columns:1fr 1fr;gap:clamp(40px,5vw,80px)}}
+
+    /* GALLERY */
+    .gallery-main{position:relative;border-radius:var(--r-xl);overflow:hidden;aspect-ratio:1/1;background:var(--bg-2)}
+    .gallery-main img{width:100%;height:100%;object-fit:cover;display:block;transition:opacity .35s ease,transform .5s var(--ease-expo)}
+    .gallery-main:hover img{transform:scale(1.03)}
+    .gallery-thumbs{display:flex;gap:10px;margin-top:12px;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:4px}
+    .gallery-thumbs::-webkit-scrollbar{height:3px}
+    .gallery-thumbs::-webkit-scrollbar-thumb{background:rgba(137,122,107,.30);border-radius:4px}
+    .gallery-thumb{flex-shrink:0;width:72px;height:72px;border-radius:var(--r-md);overflow:hidden;cursor:pointer;border:2px solid transparent;transition:border-color var(--dur-base),opacity var(--dur-base);scroll-snap-align:start;opacity:.55;background:none;padding:0}
+    .gallery-thumb img{width:100%;height:100%;object-fit:cover}
+    .gallery-thumb.active{border-color:var(--brown);opacity:1}
+    .gallery-thumb:hover{opacity:.85}
+    .gallery-dots{display:flex;gap:6px;justify-content:center;margin-top:14px}
+    .gallery-dot{width:6px;height:6px;border-radius:50%;background:rgba(137,122,107,.25);border:none;cursor:pointer;padding:0;transition:background var(--dur-base),transform var(--dur-base)}
+    .gallery-dot.active{background:var(--brown);transform:scale(1.4)}
+    /* Gallery arrows */
+    .gallery-arrow{position:absolute;top:50%;transform:translateY(-50%);z-index:10;width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,.82);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border:1px solid rgba(51,51,51,.10);display:grid;place-items:center;cursor:pointer;color:var(--ink);opacity:0;transition:opacity var(--dur-base),transform var(--dur-base),background var(--dur-base);box-shadow:0 2px 12px rgba(51,51,51,.12)}
+    .gallery-main:hover .gallery-arrow{opacity:1}
+    .gallery-arrow:hover{background:#fff;transform:translateY(-50%) scale(1.08)}
+    .gallery-arrow.prev{left:12px}
+    .gallery-arrow.next{right:12px}
+
+    /* PRODUCT INFO */
+    .product-info{position:sticky;top:100px}
+    .product-eyebrow{font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.22em;color:var(--brown)}
+    .product-title{font-family:var(--serif);font-size:clamp(1.8rem,3.5vw,2.6rem);font-weight:500;line-height:1.06;letter-spacing:-.02em;color:var(--ink);margin-top:10px}
+    .product-title em{font-style:italic;font-weight:300;color:var(--brown)}
+    .product-rating{display:flex;align-items:center;gap:8px;margin-top:14px}
+    .stars{display:flex;gap:2px;color:var(--brown)}
+    .rating-count{font-size:.78rem;color:var(--text-faint)}
+    .product-price-block{margin-top:20px;padding:20px;background:#fff;border-radius:var(--r-lg);border:1px solid rgba(51,51,51,.07)}
+    .price-label{font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:.14em;color:var(--text-faint);margin-bottom:6px}
+    .price-main{font-family:var(--serif);font-size:2.2rem;font-weight:500;color:var(--ink);line-height:1}
+    .price-installments{font-size:.8rem;color:var(--text-mid);margin-top:4px}
+    .price-installments strong{color:var(--forest)}
+    .product-pills{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px}
+    .product-pill{display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:var(--r-full);background:rgba(137,122,107,.10);font-size:.72rem;font-weight:600;color:var(--brown)}
+    .product-pill iconify-icon{font-size:.9rem}
+    .product-description{margin-top:20px;font-size:.875rem;line-height:1.75;color:var(--text-mid)}
+    .product-description p+p{margin-top:10px}
+    .pd-divider{height:1px;background:rgba(51,51,51,.08);margin:24px 0}
+
+    /* BUY ONCE */
+    .buy-once-btn{width:100%;padding:16px 24px;border-radius:var(--r-full);background:var(--ink);color:#fff;font-family:var(--sans);font-size:.875rem;font-weight:700;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:10px;letter-spacing:.02em;transition:background var(--dur-base) var(--ease-expo),transform var(--dur-base) var(--ease-expo),box-shadow var(--dur-base) var(--ease-expo)}
+    .buy-once-btn:hover{background:var(--brown);transform:translateY(-2px);box-shadow:0 12px 40px rgba(137,122,107,.35)}
+    .buy-once-btn:active{transform:scale(.97)}
+
+    /* SUBSCRIPTION CARD */
+    .subscription-card{margin-top:16px;border-radius:var(--r-xl);border:1.5px solid rgba(137,122,107,.30);overflow:hidden;background:#fff;transition:border-color var(--dur-base)}
+    .subscription-card.open{border-color:var(--brown)}
+    .sub-header{padding:16px 20px;display:flex;align-items:center;justify-content:space-between;cursor:pointer;gap:12px}
+    .sub-header-left{display:flex;align-items:center;gap:12px}
+    .sub-radio{width:18px;height:18px;border-radius:50%;border:2px solid rgba(137,122,107,.40);display:grid;place-items:center;flex-shrink:0;transition:border-color var(--dur-base);position:relative}
+    .sub-radio::after{content:'';width:8px;height:8px;border-radius:50%;background:var(--brown);opacity:0;transition:opacity var(--dur-base)}
+    .subscription-card.open .sub-radio{border-color:var(--brown)}
+    .subscription-card.open .sub-radio::after{opacity:1}
+    .sub-title{font-size:.88rem;font-weight:700;color:var(--ink)}
+    .sub-badge{padding:3px 10px;border-radius:var(--r-full);background:rgba(123,134,114,.15);color:var(--forest);font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em}
+    .sub-price-tag{text-align:right;flex-shrink:0}
+    .sub-price-main{font-family:var(--serif);font-size:1.25rem;font-weight:500;color:var(--ink)}
+    .sub-price-off{font-size:.7rem;color:var(--forest);font-weight:600}
+    .sub-body{max-height:0;overflow:hidden;transition:max-height .4s var(--ease-expo);border-top:0px solid rgba(51,51,51,.07)}
+    .subscription-card.open .sub-body{max-height:600px;border-top-width:1px}
+    .sub-body-inner{padding:20px}
+    .sub-benefits{display:flex;flex-direction:column;gap:10px;margin-bottom:18px}
+    .sub-benefit-item{display:flex;align-items:center;gap:10px;font-size:.8rem;color:var(--text-mid)}
+    .sub-benefit-item iconify-icon{font-size:1rem;color:var(--forest);flex-shrink:0}
+    .qty-label{font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:.14em;color:var(--text-faint);margin-bottom:10px}
+    .qty-options{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+    .qty-btn{min-width:52px;padding:8px 12px;border-radius:var(--r-md);border:1.5px solid rgba(51,51,51,.12);background:transparent;font-family:var(--sans);font-size:.8rem;font-weight:600;color:var(--text-mid);cursor:pointer;transition:border-color var(--dur-base),background var(--dur-base),color var(--dur-base);text-align:center}
+    .qty-btn:hover{border-color:var(--brown);color:var(--brown)}
+    .qty-btn.active{border-color:var(--brown);background:rgba(137,122,107,.10);color:var(--brown)}
+    .sub-cta-btn{width:100%;padding:14px 24px;border-radius:var(--r-full);background:var(--brown);color:#fff;font-family:var(--sans);font-size:.875rem;font-weight:700;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:10px;transition:background var(--dur-base),transform var(--dur-base),box-shadow var(--dur-base)}
+    .sub-cta-btn:hover{background:#6d5e51;transform:translateY(-2px);box-shadow:0 10px 32px rgba(137,122,107,.35)}
+
+    /* TRUST STRIP */
+    .trust-strip{display:flex;gap:20px;justify-content:center;flex-wrap:wrap;margin-top:20px;padding-top:16px;border-top:1px solid rgba(51,51,51,.07)}
+    .trust-item{display:flex;align-items:center;gap:6px;font-size:.7rem;color:var(--text-faint)}
+    .trust-item iconify-icon{font-size:.95rem;color:var(--forest)}
+  </style>
+</head>
+<body>
+
+  <!-- ANNOUNCEMENT BAR -->
+  <div class="announce-bar" id="announceBar">
+    <div>10% OFF na 1ª compra com o cupom: <strong>MIYA10</strong></div>
+  </div>
+
+  <!-- HEADER -->
+  <header class="header" id="mainHeader">
+    <div class="container header-inner">
+
+      <a href="index.html" class="header-logo">
+        <img src="DS/assets/logo-miya-preta.png" alt="Miya Kea Logo">
+      </a>
+
+      <ul class="header-nav">
+        <li><a href="index.html" class="header-link">Sobre a Miya Kea</a></li>
+        <li>
+          <a href="#" class="header-link">
+            Produtos
+            <svg width="10" height="6" viewBox="0 0 10 6" fill="none"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+          <div class="nav-dropdown">
+            <a href="produto-colageno-premium.html">Colágeno Premium</a>
+            <a href="#">Própolis Green</a>
+            <a href="#">Ritual Kit</a>
+            <div class="nav-dropdown-divider"></div>
+            <a href="#">Ver todos</a>
+          </div>
+        </li>
+        <li>
+          <a href="#" class="header-link">
+            O que te incomoda?
+            <svg width="10" height="6" viewBox="0 0 10 6" fill="none"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+          <div class="nav-dropdown">
+            <a href="#">Pele sem brilho</a>
+            <a href="#">Cabelos fracos</a>
+            <a href="#">Articulações</a>
+            <a href="#">Imunidade</a>
+          </div>
+        </li>
+        <li>
+          <a href="#" class="header-link">
+            Clube de Assinatura
+            <svg width="10" height="6" viewBox="0 0 10 6" fill="none"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+          <div class="nav-dropdown">
+            <a href="#">Como funciona</a>
+            <a href="#">Planos</a>
+            <a href="#">Benefícios</a>
+          </div>
+        </li>
+        <li><a href="index.html#kiosk" class="header-link">Onde Encontrar</a></li>
+        <li><a href="#" class="header-link">Contato</a></li>
+      </ul>
+
+      <div class="header-actions">
+        <button class="header-icon" aria-label="Buscar">
+          <i data-lucide="search" width="20" height="20"></i>
+        </button>
+        <button class="header-icon" aria-label="Conta">
+          <i data-lucide="user" width="20" height="20"></i>
+        </button>
+        <button class="header-icon cart-wrapper" aria-label="Carrinho">
+          <i data-lucide="shopping-bag" width="20" height="20"></i>
+          <span class="cart-badge">0</span>
+        </button>
+        <button class="menu-toggle" aria-label="Abrir menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+
+    </div>
+  </header>
+
+  <main>
+    <div class="container">
+
+      <!-- Breadcrumb -->
+      <nav class="breadcrumb" aria-label="Breadcrumb">
+        <a href="index.html">Início</a>
+        <span class="breadcrumb-sep">›</span>
+        <a href="#">Colágeno</a>
+        <span class="breadcrumb-sep">›</span>
+        <span aria-current="page">Colágeno Premium</span>
+      </nav>
+
+      <section class="product-hero" aria-label="Colágeno Premium">
+        <div class="product-layout">
+
+          <!-- GALLERY -->
+          <div class="gallery">
+            <div class="gallery-main" id="galleryMain">
+              <button class="gallery-arrow prev" id="galleryPrev" aria-label="Imagem anterior">
+                <iconify-icon icon="solar:arrow-left-bold-duotone" style="font-size:1.1rem;"></iconify-icon>
+              </button>
+              <button class="gallery-arrow next" id="galleryNext" aria-label="Próxima imagem">
+                <iconify-icon icon="solar:arrow-right-bold-duotone" style="font-size:1.1rem;"></iconify-icon>
+              </button>
+              <img id="mainImg"
+                src="https://cdn.shopify.com/s/files/1/0673/7487/4945/files/Miya.Collagen0924_-_Dourado-10.jpg?v=1729493067"
+                alt="Colágeno Premium Miya Kea — frasco dourado">
+            </div>
+
+            <div class="gallery-thumbs" id="galleryThumbs" role="list" aria-label="Galeria de imagens">
+              <button class="gallery-thumb active" data-index="0" aria-label="Imagem 1" role="listitem">
+                <img src="https://cdn.shopify.com/s/files/1/0673/7487/4945/files/Miya.Collagen0924_-_Dourado-10.jpg?v=1729493067" alt="">
+              </button>
+              <button class="gallery-thumb" data-index="1" aria-label="Imagem 2" role="listitem">
+                <img src="https://cdn.shopify.com/s/files/1/0673/7487/4945/files/Miya.Collagen0924_-_Dourado-5.jpg?v=1729491839" alt="">
+              </button>
+              <button class="gallery-thumb" data-index="2" aria-label="Imagem 3" role="listitem">
+                <img src="https://cdn.shopify.com/s/files/1/0673/7487/4945/files/produto4.jpg?v=1713321588" alt="">
+              </button>
+              <button class="gallery-thumb" data-index="3" aria-label="Imagem 4" role="listitem">
+                <img src="https://cdn.shopify.com/s/files/1/0673/7487/4945/files/71j3yr1L7EL._AC_SL1500.jpg?v=1731947742" alt="">
+              </button>
+            </div>
+
+            <div class="gallery-dots" id="galleryDots" role="tablist" aria-label="Navegar entre imagens">
+              <button class="gallery-dot active" data-index="0" role="tab" aria-label="Imagem 1"></button>
+              <button class="gallery-dot" data-index="1" role="tab" aria-label="Imagem 2"></button>
+              <button class="gallery-dot" data-index="2" role="tab" aria-label="Imagem 3"></button>
+              <button class="gallery-dot" data-index="3" role="tab" aria-label="Imagem 4"></button>
+            </div>
+          </div>
+
+          <!-- PRODUCT INFO -->
+          <div class="product-info">
+
+            <p class="product-eyebrow">Colágeno Premium · Programa 10 dias</p>
+            <h1 class="product-title font-serif-d">
+              1 Caixa<br>
+              <em>Colágeno Premium</em>
+            </h1>
+
+
+
+            <div class="product-price-block">
+              <p class="price-main">R$ 280,00</p>
+              <p class="price-installments">ou <strong>3× de R$ 93,33</strong> sem juros</p>
+            </div>
+
+            <div class="product-pills">
+              <span class="product-pill">
+                <iconify-icon icon="solar:test-tube-bold-duotone"></iconify-icon>
+                10g por porção
+              </span>
+              <span class="product-pill">
+                <iconify-icon icon="solar:leaf-bold-duotone"></iconify-icon>
+                Colágeno Marinho
+              </span>
+              <span class="product-pill">
+                <iconify-icon icon="solar:heart-bold-duotone"></iconify-icon>
+                Frutas Vermelhas e Uva
+              </span>
+              <span class="product-pill">
+                <iconify-icon icon="solar:hand-heart-bold-duotone"></iconify-icon>
+                Só agitar, abrir e tomar
+              </span>
+            </div>
+
+            <div class="product-description">
+              <p>Beleza transformadora: pele radiante, cabelos saudáveis e níveis elevados de hidratação e elasticidade com o consumo regular.</p>
+              <p>Cada caixa possui <strong>10 garrafinhas</strong> — basta beber uma por dia para experimentar os efeitos transformadores. A Miya Kea é pioneira no colágeno líquido, trazendo a excelência do colágeno hidrolisado japonês.</p>
+            </div>
+
+            <div class="pd-divider"></div>
+
+            <!-- BUY ONCE -->
+            <button class="buy-once-btn" id="buyOnceBtn" aria-label="Comprar uma vez por R$ 280,00">
+              <iconify-icon icon="solar:bag-heart-bold-duotone" style="font-size:1.1rem;"></iconify-icon>
+              Comprar uma vez — R$ 280,00
+            </button>
+
+            <!-- SUBSCRIPTION -->
+            <div class="subscription-card open" id="subscriptionCard">
+              <div class="sub-header">
+                <div class="sub-header-left">
+                  <div class="sub-radio" aria-hidden="true"></div>
+                  <div>
+                    <p class="sub-title">Assinatura</p>
+                  </div>
+                  <span class="sub-badge">10% OFF</span>
+                </div>
+                <div class="sub-price-tag">
+                  <p class="sub-price-main">R$ 252,00</p>
+                  <p class="sub-price-off">↓ Economia de R$ 28,00</p>
+                </div>
+              </div>
+
+              <div class="sub-body" id="subBody">
+                <div class="sub-body-inner">
+                  <div class="sub-benefits">
+                    <div class="sub-benefit-item">
+                      <iconify-icon icon="solar:check-circle-bold-duotone"></iconify-icon>
+                      10% OFF nos 3 primeiros meses
+                    </div>
+                    <div class="sub-benefit-item">
+                      <iconify-icon icon="solar:check-circle-bold-duotone"></iconify-icon>
+                      +5% OFF cumulativo a cada 3 meses
+                    </div>
+                    <div class="sub-benefit-item">
+                      <iconify-icon icon="solar:check-circle-bold-duotone"></iconify-icon>
+                      30% OFF vitalício após 1 ano de assinatura
+                    </div>
+                    <div class="sub-benefit-item">
+                      <iconify-icon icon="solar:check-circle-bold-duotone"></iconify-icon>
+                      Entrega grátis no conforto de sua casa
+                    </div>
+                    <div class="sub-benefit-item">
+                      <iconify-icon icon="solar:check-circle-bold-duotone"></iconify-icon>
+                      Acesso a novidades exclusivas para assinantes
+                    </div>
+                  </div>
+
+                  <button class="sub-cta-btn" aria-label="Assinar agora">
+                    <iconify-icon icon="solar:bag-heart-bold-duotone" style="font-size:1.1rem;"></iconify-icon>
+                    Assinar agora
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- TRUST -->
+            <div class="trust-strip">
+              <span class="trust-item">
+                <iconify-icon icon="solar:lock-bold-duotone"></iconify-icon>
+                Pagamento seguro
+              </span>
+              <span class="trust-item">
+                <iconify-icon icon="solar:delivery-bold-duotone"></iconify-icon>
+                Frete grátis na assinatura
+              </span>
+              <span class="trust-item">
+                <iconify-icon icon="solar:shield-bold-duotone"></iconify-icon>
+                Garantia de 30 dias
+              </span>
+            </div>
+
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <script src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js"></script>
+  <script src="https://unpkg.com/@studio-freight/lenis@1.0.39/dist/lenis.min.js"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script>
+    // Initialize Lucide Icons
+    lucide.createIcons();
+
+    // Smooth Scrolling with Lenis
+    const lenis = new Lenis({
+      duration: 1.2,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      direction: 'vertical',
+      gestureDirection: 'vertical',
+      smooth: true,
+      mouseMultiplier: 1,
+      smoothTouch: false,
+      touchMultiplier: 2,
+      infinite: false,
+    });
+    function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
+    requestAnimationFrame(raf);
+
+    // Header Scroll Effect
+    const header = document.getElementById('mainHeader');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) {
+        header.classList.add('scrolled');
+      } else {
+        header.classList.remove('scrolled');
+      }
+    });
+
+    // Gallery
+    const images = [
+      'https://cdn.shopify.com/s/files/1/0673/7487/4945/files/Miya.Collagen0924_-_Dourado-10.jpg?v=1729493067',
+      'https://cdn.shopify.com/s/files/1/0673/7487/4945/files/Miya.Collagen0924_-_Dourado-5.jpg?v=1729491839',
+      'https://cdn.shopify.com/s/files/1/0673/7487/4945/files/produto4.jpg?v=1713321588',
+      'https://cdn.shopify.com/s/files/1/0673/7487/4945/files/71j3yr1L7EL._AC_SL1500.jpg?v=1731947742'
+    ];
+    let current = 0;
+    const total    = images.length;
+    const mainImg  = document.getElementById('mainImg');
+    const thumbBtns = document.querySelectorAll('.gallery-thumb');
+    const dotBtns   = document.querySelectorAll('.gallery-dot');
+    function goTo(idx) {
+      current = (idx + total) % total;
+      mainImg.style.opacity = '0';
+      setTimeout(() => { mainImg.src = images[current]; mainImg.style.opacity = '1'; }, 180);
+      thumbBtns.forEach((t,i) => t.classList.toggle('active', i === current));
+      dotBtns.forEach((d,i)   => d.classList.toggle('active', i === current));
+    }
+    mainImg.style.transition = 'opacity .18s ease';
+    thumbBtns.forEach(b => b.addEventListener('click', () => goTo(+b.dataset.index)));
+    dotBtns.forEach(b   => b.addEventListener('click', () => goTo(+b.dataset.index)));
+    document.getElementById('galleryPrev').addEventListener('click', () => goTo(current - 1));
+    document.getElementById('galleryNext').addEventListener('click', () => goTo(current + 1));
+  </script>
+</body>
+</html>

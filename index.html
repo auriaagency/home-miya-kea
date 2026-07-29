@@ -608,27 +608,6 @@
     }
     .fl-card:hover::before { opacity:1 }
 
-    /* Product mini card */
-    .product-mini-card {
-      position:absolute; bottom:16px; left:16px; right:16px;
-      border-radius:1rem; background:rgba(242,242,242,.88); backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px);
-      padding:14px 16px; display:flex; align-items:center; justify-content:space-between; gap:12px;
-      transition:transform var(--dur-slow) var(--ease-expo);
-      box-shadow:0 8px 32px rgba(51,51,51,.10)
-    }
-    .image-card:hover .product-mini-card { transform:translateY(-4px) }
-    
-    /* Collection Layout */
-    .collection-grid { display: grid; grid-template-columns: 1fr; gap: 24px; }
-    .collection-stack { display: grid; grid-template-columns: 1fr; gap: 24px; }
-    @media (min-width: 1024px) {
-      .collection-grid { grid-template-columns: 1.5fr 1fr; gap: 24px; }
-      .collection-highlight { height: 100%; }
-      .collection-highlight .image-card { min-height: 100%; }
-      .collection-stack { display: flex; flex-direction: column; justify-content: space-between; gap: 24px; height: 100%; }
-      .collection-stack .image-card { height: calc(50% - 12px); }
-    }
-
     /* Layout specific to Goals section */
     .section-goals { padding: 100px 0; background: var(--bg-3); }
     .goals-header { margin-bottom: 48px; max-width: 640px; }
@@ -640,6 +619,1044 @@
     .goals-desc { font-size: 1.05rem; color: var(--text-mid); line-height: 1.6; }
     .goals-grid { display: grid; grid-template-columns: 1fr; gap: 24px; }
     @media (min-width: 768px) { .goals-grid { grid-template-columns: 1fr 1fr; } }
+
+    /* ══════════════════════════════════════════
+       BEST SELLERS SECTION
+    ══════════════════════════════════════════ */
+    .section-bestsellers {
+      padding: 100px 0;
+      background: var(--bg-3);
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Decorative blob */
+    .bs-blob {
+      position: absolute;
+      border-radius: 9999px;
+      pointer-events: none;
+      filter: blur(80px);
+    }
+
+    /* Section header */
+    .bs-header {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      margin-bottom: 56px;
+      max-width: 560px;
+    }
+    @media (min-width: 768px) {
+      .bs-header {
+        flex-direction: row;
+        align-items: flex-end;
+        justify-content: space-between;
+        max-width: none;
+      }
+    }
+    .bs-header-text { max-width: 480px; }
+    .bs-eyebrow {
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.22em;
+      color: var(--brown);
+      margin-bottom: 10px;
+    }
+    .bs-title {
+      font-family: var(--serif);
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 500;
+      line-height: 1.06;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+    }
+    .bs-title em {
+      font-style: italic;
+      font-weight: 300;
+      color: var(--brown);
+    }
+    .bs-cta-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--ink);
+      padding-bottom: 2px;
+      border-bottom: 1.5px solid var(--brown);
+      transition: color var(--dur-base) var(--ease-expo),
+                  border-color var(--dur-base) var(--ease-expo);
+      white-space: nowrap;
+      align-self: flex-end;
+    }
+    .bs-cta-link:hover { color: var(--brown); }
+    .bs-cta-link svg {
+      transition: transform var(--dur-base) var(--ease-expo);
+    }
+    .bs-cta-link:hover svg { transform: translateX(4px); }
+
+    /* Grid */
+    .bs-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
+    @media (min-width: 768px) {
+      .bs-grid { grid-template-columns: repeat(4, 1fr); gap: 20px; }
+    }
+
+    /* Product Card */
+    .product-card {
+      background: #fff;
+      border-radius: var(--r-xl);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 2px 16px rgba(51,51,51,.07);
+      transition: transform var(--dur-slow) var(--ease-expo),
+                  box-shadow var(--dur-slow) var(--ease-expo);
+      cursor: pointer;
+    }
+    .product-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 24px 60px rgba(51,51,51,.14);
+    }
+
+    /* Image wrapper — fixed aspect ratio */
+    .product-img-wrap {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 3 / 4;
+      overflow: hidden;
+      background: var(--bg-1);
+    }
+    .product-img-wrap img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      transition: opacity var(--dur-slow) var(--ease-expo),
+                  transform 0.9s var(--ease-expo);
+    }
+    .product-img-main { opacity: 1; transform: scale(1); }
+    .product-img-hover { opacity: 0; transform: scale(1.04); }
+
+    .product-card:hover .product-img-main {
+      opacity: 0;
+      transform: scale(1.04);
+    }
+    .product-card:hover .product-img-hover {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    /* "Best Seller" badge overlay */
+    .product-badge-wrap {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      z-index: 2;
+    }
+    .product-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 4px 12px;
+      border-radius: var(--r-full);
+      font-size: 0.62rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      background: var(--ink);
+      color: var(--bg-3);
+      box-shadow: 0 4px 16px rgba(51,51,51,.20);
+    }
+
+    /* Card body */
+    .product-body {
+      padding: 16px 18px 20px;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      gap: 6px;
+    }
+    .product-concern {
+      font-size: 0.65rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--brown);
+    }
+    .product-name {
+      font-family: var(--serif);
+      font-size: 1.05rem;
+      font-weight: 500;
+      line-height: 1.2;
+      color: var(--ink);
+      letter-spacing: -0.01em;
+    }
+    .product-desc {
+      font-size: 0.75rem;
+      line-height: 1.55;
+      color: var(--text-mid);
+      margin-top: 2px;
+    }
+    .product-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 14px;
+    }
+    .product-price {
+      font-family: var(--serif);
+      font-size: 1.15rem;
+      font-weight: 500;
+      color: var(--ink);
+    }
+    .product-add-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 9px 18px;
+      border-radius: var(--r-full);
+      background: var(--ink);
+      color: var(--bg-3);
+      font-size: 0.72rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      border: none;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      transition: all var(--dur-base) var(--ease-expo);
+    }
+    .product-add-btn::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      background: var(--brown);
+      transform: translateX(-102%);
+      transition: transform var(--dur-slow) var(--ease-expo);
+    }
+    .product-add-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 36px rgba(137,122,107,.30);
+    }
+    .product-add-btn:hover::after { transform: translateX(0); }
+    .product-add-btn span, .product-add-btn svg { position: relative; z-index: 1; }
+    .product-add-btn:active { transform: scale(0.95); }
+
+    /* ══════════════════════════════════════════
+       FEATURES STRIP SECTION
+    ══════════════════════════════════════════ */
+    .section-features {
+      background: var(--ink);
+      padding: 40px 0;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Subtle brand glow behind the strip */
+    .feat-glow {
+      position: absolute;
+      border-radius: 9999px;
+      pointer-events: none;
+      filter: blur(100px);
+    }
+
+    /* Top + bottom border lines with brand color */
+    .section-features::before,
+    .section-features::after {
+      content: '';
+      display: block;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(201,185,167,.20) 30%, rgba(137,122,107,.35) 50%, rgba(201,185,167,.20) 70%, transparent);
+    }
+    .section-features::before { margin-bottom: 40px; }
+    .section-features::after  { margin-top: 40px; }
+
+    /* Inner grid */
+    .feat-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1px;
+      background: rgba(255,255,255,.05);
+      border-radius: var(--r-xl);
+      overflow: hidden;
+    }
+    @media (min-width: 768px) {
+      .feat-grid { grid-template-columns: repeat(5, 1fr); }
+    }
+
+    /* Individual feature item */
+    .feat-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 36px 24px;
+      background: rgba(255,255,255,.025);
+      gap: 18px;
+      transition: background var(--dur-base) var(--ease-expo);
+      position: relative;
+      cursor: default;
+    }
+    .feat-item:hover {
+      background: rgba(255,255,255,.055);
+    }
+
+    /* Icon container — sonar pulse ring */
+    .feat-icon-wrap {
+      position: relative;
+      width: 60px;
+      height: 60px;
+      display: grid;
+      place-items: center;
+      border-radius: 18px;
+      background: rgba(137,122,107,.15);
+      color: var(--bg-1);
+      transition: background var(--dur-base) var(--ease-expo),
+                  transform var(--dur-slow) var(--ease-expo);
+      flex-shrink: 0;
+    }
+    .feat-icon-wrap::before {
+      content: '';
+      position: absolute;
+      inset: -1px;
+      border-radius: 19px;
+      border: 1px solid rgba(201,185,167,.18);
+      pointer-events: none;
+    }
+    .feat-item:hover .feat-icon-wrap {
+      background: rgba(137,122,107,.28);
+      transform: translateY(-4px) scale(1.06);
+    }
+
+    /* Sonar on icon — only on hover */
+    .feat-icon-wrap .feat-sonar {
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      border: 1px solid rgba(201,185,167,.30);
+      opacity: 0;
+      transform: scale(1);
+      transition: opacity var(--dur-fast);
+    }
+    .feat-item:hover .feat-icon-wrap .feat-sonar {
+      animation: sonar-feat 1.8s ease-out infinite;
+    }
+    .feat-item:hover .feat-icon-wrap .feat-sonar:nth-child(2) {
+      animation-delay: 0.9s;
+    }
+    @keyframes sonar-feat {
+      0%   { transform: scale(1);   opacity: .6; }
+      100% { transform: scale(2.2); opacity: 0; }
+    }
+
+    .feat-icon-wrap iconify-icon {
+      font-size: 1.75rem;
+      transition: color var(--dur-base);
+    }
+    .feat-item:hover .feat-icon-wrap iconify-icon {
+      color: var(--bg-2);
+    }
+
+    /* Text content */
+    .feat-text {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      align-items: center;
+    }
+    .feat-title {
+      font-family: var(--serif);
+      font-size: 1rem;
+      font-weight: 500;
+      line-height: 1.25;
+      letter-spacing: -0.01em;
+      color: var(--bg-2);
+      transition: color var(--dur-base);
+    }
+    .feat-item:hover .feat-title {
+      color: #fff;
+    }
+    .feat-desc {
+      font-size: 0.75rem;
+      line-height: 1.6;
+      color: rgba(235,223,207,.42);
+      max-width: 160px;
+      transition: color var(--dur-base);
+    }
+    .feat-item:hover .feat-desc {
+      color: rgba(235,223,207,.70);
+    }
+
+    /* Divider between items on desktop */
+    @media (min-width: 768px) {
+      .feat-item + .feat-item::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 20%;
+        height: 60%;
+        width: 1px;
+        background: linear-gradient(to bottom, transparent, rgba(201,185,167,.12) 30%, rgba(201,185,167,.12) 70%, transparent);
+      }
+    }
+
+    /* ══════════════════════════════════════════
+       ABOUT SECTION
+    ══════════════════════════════════════════ */
+    .section-about {
+      padding: 100px 0;
+      background: var(--bg-3);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 56px;
+      align-items: center;
+    }
+    @media (min-width: 900px) {
+      .about-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: clamp(48px, 6vw, 96px);
+      }
+    }
+
+    /* Text side */
+    .about-body {
+      font-size: 0.975rem;
+      line-height: 1.78;
+      color: var(--text-mid);
+    }
+    .about-body + .about-body {
+      margin-top: 20px;
+    }
+    .about-divider {
+      width: 40px;
+      height: 2px;
+      background: linear-gradient(90deg, var(--brown), var(--sage));
+      border-radius: 2px;
+      margin: 28px 0;
+    }
+
+    /* Trust stats row */
+    .about-stats {
+      display: flex;
+      gap: 36px;
+      align-items: flex-start;
+      margin-top: 40px;
+      flex-wrap: wrap;
+    }
+    .about-stat-divider {
+      width: 1px;
+      background: rgba(51,51,51,.12);
+      align-self: stretch;
+    }
+    .about-stat-num {
+      font-family: var(--serif);
+      font-size: 2.4rem;
+      font-weight: 500;
+      line-height: 1;
+      color: var(--brown);
+    }
+    .about-stat-num em {
+      font-size: 1.2rem;
+      font-weight: 300;
+      font-style: normal;
+    }
+    .about-stat-label {
+      font-size: 0.67rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--text-faint);
+      margin-top: 4px;
+    }
+
+    /* Media placeholder */
+    .about-media {
+      position: relative;
+      border-radius: var(--r-xl);
+      overflow: hidden;
+      aspect-ratio: 4 / 5;
+      background: var(--bg-1);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      border: 1.5px dashed rgba(137,122,107,.30);
+      transition: border-color var(--dur-base);
+    }
+    .about-media:hover { border-color: rgba(137,122,107,.55); }
+    .about-media-icon {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background: rgba(137,122,107,.12);
+      display: grid;
+      place-items: center;
+      color: var(--brown);
+    }
+    .about-media-label {
+      font-size: 0.72rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--text-faint);
+    }
+    .about-media-hint {
+      font-size: 0.68rem;
+      color: var(--text-faint);
+      opacity: 0.7;
+    }
+
+    /* Nippi badge — floats over the media */
+    .about-badge-float {
+      position: absolute;
+      bottom: 20px;
+      left: 20px;
+      right: 20px;
+      background: rgba(242,242,242,.88);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-radius: var(--r-md);
+      padding: 14px 18px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      box-shadow: 0 8px 32px rgba(51,51,51,.10);
+    }
+    .about-badge-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--forest);
+      flex-shrink: 0;
+    }
+    .about-badge-text {
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--ink);
+      line-height: 1.3;
+    }
+    .about-badge-sub {
+      font-size: 0.68rem;
+      color: var(--text-faint);
+      margin-top: 2px;
+    }
+
+    /* ══════════════════════════════════════════
+       CLUB SECTION
+    ══════════════════════════════════════════ */
+    .section-club {
+      background: var(--ink);
+      padding: 100px 0;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Radial warm glow at center */
+    .club-glow {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 70% 60% at 50% 100%, rgba(137,122,107,.22) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .club-inner {
+      position: relative;
+      z-index: 2;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 64px;
+      align-items: center;
+    }
+    @media (min-width: 900px) {
+      .club-inner { grid-template-columns: 1fr 1fr; }
+    }
+
+    /* Left — text column */
+    .club-eyebrow {
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.22em;
+      color: var(--bg-1);
+      opacity: 0.6;
+      margin-bottom: 10px;
+    }
+    .club-title {
+      font-family: var(--serif);
+      font-size: clamp(2.2rem, 4.5vw, 3.5rem);
+      font-weight: 500;
+      line-height: 1.06;
+      letter-spacing: -0.025em;
+      color: var(--bg-2);
+    }
+    .club-title em {
+      font-style: italic;
+      font-weight: 300;
+      color: var(--bg-1);
+    }
+    .club-subtitle {
+      margin-top: 20px;
+      font-size: 0.95rem;
+      line-height: 1.7;
+      color: rgba(235,223,207,.50);
+      max-width: 420px;
+    }
+
+    /* CTA button */
+    .club-cta {
+      margin-top: 40px;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 15px 36px;
+      border-radius: var(--r-full);
+      background: linear-gradient(135deg, var(--bg-1), var(--brown), var(--ink));
+      background-size: 200% auto;
+      color: #fff;
+      font-size: 0.875rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      border: none;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      animation: gradient-shift 4s ease infinite;
+      transition: transform var(--dur-base) var(--ease-expo),
+                  box-shadow var(--dur-base) var(--ease-expo);
+    }
+    .club-cta:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 20px 56px rgba(137,122,107,.40);
+    }
+    .club-cta:active { transform: scale(0.96); }
+
+    /* Right — benefit cards column */
+    .club-benefits {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .club-benefit {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      padding: 20px 22px;
+      border-radius: var(--r-lg);
+      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(201,185,167,.08);
+      transition: background var(--dur-base) var(--ease-expo),
+                  border-color var(--dur-base) var(--ease-expo),
+                  transform var(--dur-slow) var(--ease-expo);
+    }
+    .club-benefit:hover {
+      background: rgba(255,255,255,.07);
+      border-color: rgba(201,185,167,.18);
+      transform: translateX(4px);
+    }
+    .club-benefit-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      background: rgba(137,122,107,.18);
+      display: grid;
+      place-items: center;
+      color: var(--bg-1);
+      flex-shrink: 0;
+      transition: background var(--dur-base);
+    }
+    .club-benefit:hover .club-benefit-icon {
+      background: rgba(137,122,107,.30);
+    }
+    .club-benefit-icon iconify-icon { font-size: 1.25rem; }
+    .club-benefit-title {
+      font-family: var(--serif);
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: var(--bg-2);
+      line-height: 1.3;
+      letter-spacing: -0.01em;
+    }
+    .club-benefit-desc {
+      font-size: 0.75rem;
+      line-height: 1.6;
+      color: rgba(235,223,207,.42);
+      margin-top: 3px;
+    }
+
+    /* ══════════════════════════════════════════
+       FOOTER
+    ══════════════════════════════════════════ */
+    .site-footer {
+      background: #1c1c1c;
+      color: var(--bg-2);
+      padding-top: 80px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Top gradient line */
+    .site-footer::before {
+      content: '';
+      display: block;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(201,185,167,.18) 30%, rgba(137,122,107,.32) 50%, rgba(201,185,167,.18) 70%, transparent);
+      margin-bottom: 64px;
+    }
+
+    /* Newsletter band */
+    .footer-newsletter {
+      background: rgba(137,122,107,.10);
+      border: 1px solid rgba(201,185,167,.10);
+      border-radius: var(--r-xl);
+      padding: 36px 40px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      margin-bottom: 64px;
+    }
+    @media (min-width: 768px) {
+      .footer-newsletter {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        gap: 40px;
+      }
+    }
+    .footer-nl-text { flex: 1; }
+    .footer-nl-title {
+      font-family: var(--serif);
+      font-size: 1.35rem;
+      font-weight: 500;
+      color: var(--bg-2);
+      letter-spacing: -0.01em;
+      line-height: 1.2;
+    }
+    .footer-nl-sub {
+      font-size: 0.78rem;
+      color: rgba(235,223,207,.40);
+      margin-top: 4px;
+    }
+    .footer-nl-form {
+      display: flex;
+      gap: 10px;
+      flex: 1;
+      max-width: 400px;
+      width: 100%;
+    }
+    .footer-nl-input {
+      flex: 1;
+      padding: 12px 16px;
+      border-radius: var(--r-full);
+      border: 1px solid rgba(201,185,167,.15);
+      background: rgba(255,255,255,.06);
+      color: var(--bg-2);
+      font-family: var(--sans);
+      font-size: 0.85rem;
+      outline: none;
+      transition: border-color var(--dur-base), background var(--dur-base);
+    }
+    .footer-nl-input::placeholder { color: rgba(235,223,207,.28); }
+    .footer-nl-input:focus {
+      border-color: rgba(137,122,107,.50);
+      background: rgba(255,255,255,.09);
+    }
+    .footer-nl-btn {
+      padding: 12px 22px;
+      border-radius: var(--r-full);
+      background: var(--brown);
+      color: #fff;
+      font-size: 0.8rem;
+      font-weight: 600;
+      border: none;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: background var(--dur-base), transform var(--dur-base);
+    }
+    .footer-nl-btn:hover { background: #6d5e51; transform: translateY(-2px); }
+
+    /* Main grid */
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px 24px;
+    }
+    @media (min-width: 768px) {
+      .footer-grid {
+        grid-template-columns: 2fr 1fr 1fr 1fr;
+        gap: 0 48px;
+      }
+    }
+
+    /* Brand column */
+    .footer-brand-logo img {
+      height: 24px;
+      width: auto;
+      filter: brightness(0) invert(1);
+      opacity: 0.85;
+    }
+    .footer-brand-tagline {
+      margin-top: 16px;
+      font-size: 0.8rem;
+      line-height: 1.65;
+      color: rgba(235,223,207,.38);
+      max-width: 220px;
+    }
+    .footer-social {
+      display: flex;
+      gap: 10px;
+      margin-top: 24px;
+    }
+    .footer-social-btn {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(201,185,167,.10);
+      display: grid;
+      place-items: center;
+      color: rgba(235,223,207,.50);
+      cursor: pointer;
+      transition: background var(--dur-fast), color var(--dur-fast), border-color var(--dur-fast), transform var(--dur-fast);
+    }
+    .footer-social-btn:hover {
+      background: rgba(137,122,107,.25);
+      border-color: rgba(137,122,107,.40);
+      color: var(--bg-1);
+      transform: translateY(-2px);
+    }
+    .footer-social-btn iconify-icon { font-size: 1rem; }
+
+    /* Link columns */
+    .footer-col-title {
+      font-size: 0.68rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: rgba(235,223,207,.35);
+      margin-bottom: 20px;
+    }
+    .footer-links {
+      display: flex;
+      flex-direction: column;
+      gap: 11px;
+    }
+    .footer-links a {
+      font-size: 0.82rem;
+      color: rgba(235,223,207,.52);
+      transition: color var(--dur-fast);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .footer-links a:hover { color: var(--bg-1); }
+    .footer-links a .ft-new {
+      font-size: 0.55rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      padding: 2px 6px;
+      border-radius: 4px;
+      background: rgba(179,189,163,.20);
+      color: var(--sage);
+    }
+
+    /* Bottom bar */
+    .footer-bottom {
+      margin-top: 64px;
+      padding: 20px 0;
+      border-top: 1px solid rgba(255,255,255,.06);
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      align-items: center;
+      text-align: center;
+    }
+    @media (min-width: 768px) {
+      .footer-bottom {
+        flex-direction: row;
+        justify-content: space-between;
+        text-align: left;
+      }
+    }
+    .footer-copy {
+      font-size: 0.72rem;
+      color: rgba(235,223,207,.25);
+    }
+    .footer-payments {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+    .footer-payment-badge {
+      height: 22px;
+      padding: 0 8px;
+      border-radius: 4px;
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.08);
+      display: grid;
+      place-items: center;
+      font-size: 0.6rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      color: rgba(235,223,207,.35);
+      text-transform: uppercase;
+    }
+
+    /* ══════════════════════════════════════════
+       KIOSK SECTION
+    ══════════════════════════════════════════ */
+    .section-kiosk {
+      background: var(--bg-2);
+      padding: 100px 0;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .kiosk-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 56px;
+      align-items: center;
+    }
+    @media (min-width: 900px) {
+      .kiosk-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: clamp(48px, 6vw, 88px);
+      }
+    }
+
+    /* Photo */
+    .kiosk-photo {
+      border-radius: var(--r-xl);
+      overflow: hidden;
+      aspect-ratio: 4 / 3;
+      position: relative;
+    }
+    .kiosk-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.8s var(--ease-expo);
+    }
+    .kiosk-photo:hover img { transform: scale(1.04); }
+
+    /* Shopping badge over photo */
+    .kiosk-badge {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      background: rgba(242,242,242,.88);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-radius: var(--r-full);
+      padding: 8px 16px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 4px 20px rgba(51,51,51,.12);
+    }
+    .kiosk-badge-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--forest);
+      animation: sonar-feat 2s ease-out infinite;
+    }
+    .kiosk-badge-text {
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--ink);
+    }
+
+    /* Info side */
+    .kiosk-info-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      padding: 18px 0;
+      border-bottom: 1px solid rgba(51,51,51,.08);
+    }
+    .kiosk-info-row:first-child { padding-top: 0; }
+    .kiosk-info-row:last-child { border-bottom: none; padding-bottom: 0; }
+    .kiosk-info-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 12px;
+      background: rgba(137,122,107,.12);
+      display: grid;
+      place-items: center;
+      color: var(--brown);
+      flex-shrink: 0;
+    }
+    .kiosk-info-icon iconify-icon { font-size: 1.15rem; }
+    .kiosk-info-label {
+      font-size: 0.65rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--text-faint);
+      margin-bottom: 4px;
+    }
+    .kiosk-info-value {
+      font-size: 0.88rem;
+      color: var(--ink);
+      line-height: 1.55;
+    }
+    .kiosk-hours-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.82rem;
+      padding: 6px 0;
+    }
+    .kiosk-hours-row span:first-child { color: var(--text-mid); }
+    .kiosk-hours-row span:last-child  { font-weight: 600; color: var(--ink); }
+    .kiosk-hours-row + .kiosk-hours-row { border-top: 1px solid rgba(51,51,51,.06); }
+
+    /* Maps CTA */
+    .kiosk-maps-btn {
+      margin-top: 28px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 24px;
+      border-radius: var(--r-full);
+      border: 1.5px solid rgba(137,122,107,.40);
+      color: var(--brown);
+      font-size: 0.8rem;
+      font-weight: 600;
+      background: transparent;
+      cursor: pointer;
+      transition: background var(--dur-base), border-color var(--dur-base), color var(--dur-base), transform var(--dur-base);
+    }
+    .kiosk-maps-btn:hover {
+      background: var(--brown);
+      border-color: var(--brown);
+      color: #fff;
+      transform: translateY(-2px);
+    }
   </style>
 </head>
 <body>
@@ -655,7 +1672,7 @@
       
       <!-- Logo -->
       <a href="#" class="header-logo">
-        <img src="assets/logo-miya-preta.png" alt="Miya Kea Logo">
+        <img src="DS/assets/logo-miya-preta.png" alt="Miya Kea Logo">
       </a>
 
       <!-- Nav (Desktop) -->
@@ -876,7 +1893,638 @@
     </div>
   </section>
 
+  <!-- BEST SELLERS SECTION -->
+  <section class="section-bestsellers" id="bestSellers" aria-label="Mais Vendidos">
+
+    <!-- Ambient blobs -->
+    <div class="bs-blob" style="width:500px;height:500px;background:rgba(137,122,107,.10);top:-120px;right:-100px;"></div>
+    <div class="bs-blob" style="width:360px;height:360px;background:rgba(179,189,163,.12);bottom:-80px;left:-60px;"></div>
+
+    <div class="container" style="position:relative;z-index:2;">
+
+      <!-- Header row -->
+      <div class="bs-header" data-reveal>
+        <div class="bs-header-text">
+          <p class="bs-eyebrow">Mais Vendidos</p>
+          <h2 class="bs-title">
+            Os favoritos que<br>
+            <em>transformam rotinas</em>
+          </h2>
+        </div>
+        <a href="#" class="bs-cta-link">
+          Ver todos os produtos
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+            <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
+      </div>
+
+      <!-- Products grid -->
+      <div class="bs-grid">
+
+        <!-- 1 — Colágeno Premium -->
+        <article class="product-card" data-reveal id="product-collagen-premium">
+          <a href="produto-colageno-premium.html" aria-label="Ver Colágeno Premium" style="display:contents;">
+            <div class="product-img-wrap">
+              <img
+                class="product-img-main"
+                src="https://cdn.shopify.com/s/files/1/0673/7487/4945/files/Miya.Collagen0924_-_Dourado-4.jpg?v=1729197347"
+                alt="Miya Kea Colágeno Premium — frasco dourado"
+                loading="lazy"
+              >
+              <img
+                class="product-img-hover"
+                src="https://cdn.shopify.com/s/files/1/0673/7487/4945/files/71WYq-nKgWL._AC_SL1500.jpg?v=1731947742"
+                alt="Colágeno Premium — detalhe do produto"
+                loading="lazy"
+              >
+              <div class="product-badge-wrap">
+                <span class="product-badge">#1 Best Seller</span>
+              </div>
+            </div>
+          </a>
+          <div class="product-body">
+            <p class="product-concern">Rugas &amp; Flacidez</p>
+            <h3 class="product-name"><a href="produto-colageno-premium.html" style="color:inherit;">Colágeno<br>Premium</a></h3>
+            <p class="product-desc">Colágeno hidrolisado tipo I &amp; III para firmeza e renovação profunda da pele.</p>
+            <div class="product-footer">
+              <span class="product-price">R$ 149,90</span>
+              <a href="produto-colageno-premium.html" class="product-add-btn" aria-label="Ver Colágeno Premium">
+                <span>Ver produto</span>
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M3 7h8M7 3l4 4-4 4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </a>
+            </div>
+          </div>
+        </article>
+
+        <!-- 2 — Skin & Hair -->
+        <article class="product-card" data-reveal id="product-skin-hair" style="transition-delay:.08s;">
+          <div class="product-img-wrap">
+            <img
+              class="product-img-main"
+              src="https://cdn.shopify.com/s/files/1/0673/7487/4945/files/Miya.Collagen0924_-_Rosa-4.jpg?v=1729197290"
+              alt="Miya Kea Skin &amp; Hair — frasco rosê"
+              loading="lazy"
+            >
+            <img
+              class="product-img-hover"
+              src="https://cdn.shopify.com/s/files/1/0673/7487/4945/files/61AS9xZC0EL._AC_SL1500.jpg?v=1731961392"
+              alt="Skin &amp; Hair — detalhe do produto"
+              loading="lazy"
+            >
+            <div class="product-badge-wrap">
+              <span class="product-badge">Top Rated</span>
+            </div>
+          </div>
+          <div class="product-body">
+            <p class="product-concern">Unhas &amp; Cabelos</p>
+            <h3 class="product-name">Skin &amp;<br>Hair</h3>
+            <p class="product-desc">Biotina + Colágeno para cabelos fortes, unhas firmes e linhas finas reduzidas.</p>
+            <div class="product-footer">
+              <span class="product-price">R$ 139,90</span>
+              <button class="product-add-btn" aria-label="Adicionar Skin & Hair ao carrinho">
+                <span>Comprar</span>
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M1 1h2l1.5 7h7L13 4H4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/><circle cx="6" cy="12" r="1" fill="currentColor"/><circle cx="11" cy="12" r="1" fill="currentColor"/></svg>
+              </button>
+            </div>
+          </div>
+        </article>
+
+        <!-- 3 — Joint Health -->
+        <article class="product-card" data-reveal id="product-joint-health" style="transition-delay:.16s;">
+          <div class="product-img-wrap">
+            <img
+              class="product-img-main"
+              src="https://cdn.shopify.com/s/files/1/0673/7487/4945/files/Miya.Collagen0924_-_Azul-4.jpg?v=1729197449"
+              alt="Miya Kea Joint Health — frasco azul"
+              loading="lazy"
+            >
+            <img
+              class="product-img-hover"
+              src="https://cdn.shopify.com/s/files/1/0673/7487/4945/files/14_9187580c-bcbd-4f51-8ab7-6e56a353e832.jpg?v=1724650795"
+              alt="Joint Health — detalhe do produto"
+              loading="lazy"
+            >
+            <div class="product-badge-wrap">
+              <span class="product-badge">Novo</span>
+            </div>
+          </div>
+          <div class="product-body">
+            <p class="product-concern">Dor Óssea &amp; Muscular</p>
+            <h3 class="product-name">Joint<br>Health</h3>
+            <p class="product-desc">Colágeno tipo II + UC-II para articulações livres e movimentos sem dor.</p>
+            <div class="product-footer">
+              <span class="product-price">R$ 144,90</span>
+              <button class="product-add-btn" aria-label="Adicionar Joint Health ao carrinho">
+                <span>Comprar</span>
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M1 1h2l1.5 7h7L13 4H4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/><circle cx="6" cy="12" r="1" fill="currentColor"/><circle cx="11" cy="12" r="1" fill="currentColor"/></svg>
+              </button>
+            </div>
+          </div>
+        </article>
+
+        <!-- 4 — Própolis Vermelho -->
+        <article class="product-card" data-reveal id="product-propolis-vermelho" style="transition-delay:.24s;">
+          <div class="product-img-wrap">
+            <img
+              class="product-img-main"
+              src="https://cdn.shopify.com/s/files/1/0673/7487/4945/files/Miya.Propolis.Vermelho-5.jpg?v=1776437315"
+              alt="Miya Kea Própolis Vermelho — frasco"
+              loading="lazy"
+            >
+            <img
+              class="product-img-hover"
+              src="https://cdn.shopify.com/s/files/1/0673/7487/4945/files/Miya.Propolis.Vermelho-3.jpg?v=1776437233"
+              alt="Própolis Vermelho — detalhe do produto"
+              loading="lazy"
+            >
+            <div class="product-badge-wrap">
+              <span class="product-badge" style="background:var(--brown);">Exclusivo</span>
+            </div>
+          </div>
+          <div class="product-body">
+            <p class="product-concern">Imunidade &amp; Equilíbrio</p>
+            <h3 class="product-name">Própolis<br>Vermelho</h3>
+            <p class="product-desc">Fator imunidade e equilíbrio hormonal com o extrato mais raro da natureza.</p>
+            <div class="product-footer">
+              <span class="product-price">R$ 134,90</span>
+              <button class="product-add-btn" aria-label="Adicionar Própolis Vermelho ao carrinho">
+                <span>Comprar</span>
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M1 1h2l1.5 7h7L13 4H4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/><circle cx="6" cy="12" r="1" fill="currentColor"/><circle cx="11" cy="12" r="1" fill="currentColor"/></svg>
+              </button>
+            </div>
+          </div>
+        </article>
+
+      </div><!-- /bs-grid -->
+    </div><!-- /container -->
+  </section>
+
+  <!-- FEATURES STRIP -->
+  <section class="section-features" id="featuresStrip" aria-label="Características dos produtos">
+
+    <!-- Ambient glows -->
+    <div class="feat-glow" style="width:600px;height:300px;background:rgba(137,122,107,.08);top:50%;left:50%;transform:translate(-50%,-50%);"></div>
+    <div class="feat-glow" style="width:300px;height:300px;background:rgba(179,189,163,.06);top:-80px;left:-60px;"></div>
+
+    <div class="container" style="position:relative;z-index:2;">
+
+      <div class="feat-grid" data-reveal>
+
+        <!-- 1 — Colágeno Hidrolisado -->
+        <div class="feat-item">
+          <div class="feat-icon-wrap">
+            <span class="feat-sonar"></span>
+            <span class="feat-sonar"></span>
+            <iconify-icon icon="solar:test-tube-bold-duotone" aria-hidden="true"></iconify-icon>
+          </div>
+          <div class="feat-text">
+            <p class="feat-title">Colágeno<br>Hidrolisado</p>
+            <p class="feat-desc">Peptídeos de baixo peso molecular para absorção rápida e profunda.</p>
+          </div>
+        </div>
+
+        <!-- 2 — Qualidade Certificada -->
+        <div class="feat-item">
+          <div class="feat-icon-wrap" style="background:rgba(123,134,114,.15);">
+            <span class="feat-sonar"></span>
+            <span class="feat-sonar"></span>
+            <iconify-icon icon="solar:star-fall-bold-duotone" aria-hidden="true" style="color:var(--sage);"></iconify-icon>
+          </div>
+          <div class="feat-text">
+            <p class="feat-title">Qualidade<br>Certificada</p>
+            <p class="feat-desc">Tecnologia japonesa Nippi Collagen — padrão ouro global.</p>
+          </div>
+        </div>
+
+        <!-- 3 — Colágeno Marinho -->
+        <div class="feat-item">
+          <div class="feat-icon-wrap">
+            <span class="feat-sonar"></span>
+            <span class="feat-sonar"></span>
+            <iconify-icon icon="solar:leaf-bold-duotone" aria-hidden="true" style="font-size:1.75rem;color:var(--bg-1);"></iconify-icon>
+          </div>
+          <div class="feat-text">
+            <p class="feat-title">Origem<br>Marinha</p>
+            <p class="feat-desc">Alternativa superior a fontes animais, com maior pureza e biocompatibilidade.</p>
+          </div>
+        </div>
+
+        <!-- 4 — Com Vitaminas -->
+        <div class="feat-item">
+          <div class="feat-icon-wrap" style="background:rgba(123,134,114,.15);">
+            <span class="feat-sonar"></span>
+            <span class="feat-sonar"></span>
+            <iconify-icon icon="solar:sun-2-bold-duotone" aria-hidden="true" style="color:var(--sage);"></iconify-icon>
+          </div>
+          <div class="feat-text">
+            <p class="feat-title">Vitaminas &amp;<br>Nutrientes</p>
+            <p class="feat-desc">Enriquecido com vitaminas e sabor delicioso de frutas naturais.</p>
+          </div>
+        </div>
+
+        <!-- 5 — Super Prático -->
+        <div class="feat-item">
+          <div class="feat-icon-wrap">
+            <span class="feat-sonar"></span>
+            <span class="feat-sonar"></span>
+            <iconify-icon icon="solar:hand-heart-bold-duotone" aria-hidden="true"></iconify-icon>
+          </div>
+          <div class="feat-text">
+            <p class="feat-title">Super<br>Prático</p>
+            <p class="feat-desc">Sachê individual — sem misturar. Agite, abra e tome onde quiser.</p>
+          </div>
+        </div>
+
+      </div><!-- /feat-grid -->
+    </div><!-- /container -->
+  </section>
+
+  <!-- ABOUT SECTION -->
+  <section class="section-about" id="aboutSection" aria-label="Sobre a Miya Kea">
+
+    <!-- Decorative blobs -->
+    <div class="bs-blob" style="width:480px;height:480px;background:rgba(137,122,107,.08);top:-120px;right:-80px;"></div>
+    <div class="bs-blob" style="width:320px;height:320px;background:rgba(179,189,163,.10);bottom:-60px;left:-60px;"></div>
+
+    <div class="container" style="position:relative;z-index:2;">
+      <div class="about-grid">
+
+        <!-- LEFT — Text -->
+        <div data-reveal>
+          <p class="bs-eyebrow">Sobre a Miya Kea</p>
+
+          <h2 class="font-serif-d" style="margin-top:12px;font-size:clamp(2rem,4vw,3rem);font-weight:500;line-height:1.06;letter-spacing:-.02em;color:var(--ink);">
+            Pioneira no<br>
+            <em style="font-style:italic;font-weight:300;color:var(--brown);">colágeno líquido</em><br>
+            premium do Brasil
+          </h2>
+
+          <div class="about-divider"></div>
+
+          <p class="about-body">
+            A Miya Kea traz diretamente do Japão o colágeno marinho hidrolisado da <strong>Nippi Collagen</strong> — uma empresa fundada em 1907 e líder global no fornecimento de colágeno marinho.
+          </p>
+          <p class="about-body">
+            Com mais de 100 anos de experiência e tecnologia patenteada, a Nippi foi aprimorando a produção do colágeno hidrolisado por meio de estudos e pesquisas científicas contínuas, garantindo o padrão ouro de qualidade e biodisponibilidade.
+          </p>
+
+          <!-- Trust stats -->
+          <div class="about-stats">
+            <div>
+              <div class="about-stat-num">1907<em></em></div>
+              <div class="about-stat-label">Fundação Nippi</div>
+            </div>
+            <div class="about-stat-divider"></div>
+            <div>
+              <div class="about-stat-num">100<em>+</em></div>
+              <div class="about-stat-label">Anos de pesquisa</div>
+            </div>
+            <div class="about-stat-divider"></div>
+            <div>
+              <div class="about-stat-num">#1<em></em></div>
+              <div class="about-stat-label">Líder global</div>
+            </div>
+          </div>
+
+          <a href="#" class="bs-cta-link" style="margin-top:36px;display:inline-flex;">
+            Conhecer nossa história
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+              <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </a>
+        </div>
+
+        <!-- RIGHT — Media placeholder -->
+        <div data-reveal style="transition-delay:.1s;">
+          <div class="about-media fl-card">
+
+            <div class="about-media-icon">
+              <iconify-icon icon="solar:play-circle-bold-duotone" style="font-size:2rem;"></iconify-icon>
+            </div>
+            <p class="about-media-label">Imagem ou Vídeo</p>
+            <p class="about-media-hint">Substitua por img ou iframe</p>
+
+            <!-- Float badge -->
+            <div class="about-badge-float">
+              <div class="about-badge-dot"></div>
+              <div>
+                <p class="about-badge-text">Nippi Collagen — Japão</p>
+                <p class="about-badge-sub">Tecnologia patenteada · Padrão ouro global</p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- CLUB SECTION -->
+  <section class="section-club" id="clubSection" aria-label="Clube de Assinatura">
+
+    <div class="club-glow"></div>
+    <!-- Extra blob accent -->
+    <div class="feat-glow" style="width:400px;height:400px;background:rgba(179,189,163,.07);top:-80px;left:-80px;"></div>
+
+    <div class="container">
+      <div class="club-inner">
+
+        <!-- LEFT — Heading + CTA -->
+        <div data-reveal>
+
+          <!-- Live badge -->
+          <div style="display:inline-flex;align-items:center;gap:10px;padding:6px 16px;border-radius:var(--r-full);border:1px solid rgba(201,185,167,.15);background:rgba(255,255,255,.04);margin-bottom:24px;">
+            <span style="position:relative;display:inline-flex;width:8px;height:8px;">
+              <span style="position:absolute;inset:0;border-radius:50%;background:var(--sage);opacity:.4;animation:sonar-feat 2s ease-out infinite;"></span>
+              <span style="position:relative;width:8px;height:8px;border-radius:50%;background:var(--sage);display:block;"></span>
+            </span>
+            <span style="font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.18em;color:rgba(179,189,163,.8);">Clube de Assinatura</span>
+          </div>
+
+          <h2 class="club-title">
+            Beleza contínua,<br>
+            <em>sem esforço</em>
+          </h2>
+
+          <p class="club-subtitle">
+            Assine, receba todo mês e economize cada vez mais. Quanto mais tempo você fica, maior o desconto.
+          </p>
+
+          <a href="#" class="club-cta">
+            <iconify-icon icon="solar:bag-heart-bold-duotone" style="font-size:1.1rem;"></iconify-icon>
+            <span>Conheça!</span>
+            <iconify-icon icon="solar:arrow-right-bold-duotone" style="font-size:1rem;"></iconify-icon>
+          </a>
+
+          <!-- Social proof micro-line -->
+          <p style="margin-top:24px;font-size:.72rem;color:rgba(235,223,207,.30);display:flex;align-items:center;gap:8px;">
+            <iconify-icon icon="solar:users-group-rounded-bold-duotone" style="font-size:1rem;color:var(--sage);"></iconify-icon>
+            +400 assinantes ativos no Brasil
+          </p>
+        </div>
+
+        <!-- RIGHT — Benefits list -->
+        <div class="club-benefits" data-reveal style="transition-delay:.1s;">
+
+          <!-- Benefit 1 -->
+          <div class="club-benefit">
+            <div class="club-benefit-icon">
+              <iconify-icon icon="solar:tag-price-bold-duotone"></iconify-icon>
+            </div>
+            <div>
+              <p class="club-benefit-title">10% OFF nos 3 primeiros meses</p>
+              <p class="club-benefit-desc">Desconto imediato a partir do primeiro pedido da sua assinatura.</p>
+            </div>
+          </div>
+
+          <!-- Benefit 2 -->
+          <div class="club-benefit">
+            <div class="club-benefit-icon">
+              <iconify-icon icon="solar:delivery-bold-duotone"></iconify-icon>
+            </div>
+            <div>
+              <p class="club-benefit-title">Frete grátis e entrega em casa</p>
+              <p class="club-benefit-desc">Sem se preocupar — seus produtos chegam no conforto da sua casa, todo mês.</p>
+            </div>
+          </div>
+
+          <!-- Benefit 3 -->
+          <div class="club-benefit">
+            <div class="club-benefit-icon" style="background:rgba(123,134,114,.20);">
+              <iconify-icon icon="solar:chart-bold-duotone" style="color:var(--sage);"></iconify-icon>
+            </div>
+            <div>
+              <p class="club-benefit-title">Até 30% OFF após 1 ano</p>
+              <p class="club-benefit-desc">+5% OFF cumulativo a cada 3 meses de assinatura. Fidelidade que vale muito.</p>
+            </div>
+          </div>
+
+          <!-- Benefit 4 -->
+          <div class="club-benefit">
+            <div class="club-benefit-icon">
+              <iconify-icon icon="solar:star-fall-bold-duotone"></iconify-icon>
+            </div>
+            <div>
+              <p class="club-benefit-title">Novidades exclusivas</p>
+              <p class="club-benefit-desc">Acesso antecipado a lançamentos e fórmulas desenvolvidas exclusivamente para assinantes.</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- KIOSK SECTION -->
+  <section class="section-kiosk" id="kiosk" aria-label="Quiosque Shopping Morumbi">
+
+    <div class="bs-blob" style="width:400px;height:400px;background:rgba(137,122,107,.08);top:-80px;right:-60px;"></div>
+    <div class="bs-blob" style="width:280px;height:280px;background:rgba(179,189,163,.10);bottom:-40px;left:-40px;"></div>
+
+    <div class="container" style="position:relative;z-index:2;">
+      <div class="kiosk-grid">
+
+        <!-- LEFT — Photo -->
+        <div class="kiosk-photo fl-card" data-reveal>
+          <img
+            src="https://cdn.shopify.com/s/files/1/0673/7487/4945/files/quiosque-26.jpg?v=1759433602"
+            alt="Quiosque Miya Kea no Shopping Morumbi"
+            loading="lazy"
+          >
+          <div class="kiosk-badge">
+            <span class="kiosk-badge-dot"></span>
+            <span class="kiosk-badge-text">Aberto hoje</span>
+          </div>
+        </div>
+
+        <!-- RIGHT — Info -->
+        <div data-reveal style="transition-delay:.1s;">
+
+          <p class="bs-eyebrow">Visite-nos</p>
+          <h2 class="font-serif-d" style="margin-top:12px;font-size:clamp(1.8rem,3.5vw,2.8rem);font-weight:500;line-height:1.08;letter-spacing:-.02em;color:var(--ink);">
+            Quiosque
+            <em style="font-style:italic;font-weight:300;color:var(--brown);">Shopping<br>Morumbi</em>
+          </h2>
+
+          <div class="about-divider" style="margin:24px 0;"></div>
+
+          <div>
+
+            <!-- Localização -->
+            <div class="kiosk-info-row">
+              <div class="kiosk-info-icon">
+                <iconify-icon icon="solar:map-point-bold-duotone" style="font-size:1.15rem;"></iconify-icon>
+              </div>
+              <div>
+                <p class="kiosk-info-label">Endereço</p>
+                <p class="kiosk-info-value">
+                  Piso Superior<br>
+                  Av. Roque Petroni Júnior, 1089<br>
+                  Jardim das Acácias, São Paulo — SP<br>
+                  <span style="font-size:.78rem;color:var(--text-faint);">CEP 04707-900</span>
+                </p>
+              </div>
+            </div>
+
+            <!-- Horários -->
+            <div class="kiosk-info-row">
+              <div class="kiosk-info-icon" style="background:rgba(123,134,114,.12);color:var(--forest);">
+                <iconify-icon icon="solar:clock-circle-bold-duotone" style="font-size:1.15rem;"></iconify-icon>
+              </div>
+              <div style="width:100%;">
+                <p class="kiosk-info-label">Horário de Funcionamento</p>
+                <div style="margin-top:8px;">
+                  <div class="kiosk-hours-row">
+                    <span>Segunda à Sábado</span>
+                    <span>10h às 22h</span>
+                  </div>
+                  <div class="kiosk-hours-row">
+                    <span>Domingos e Feriados</span>
+                    <span>14h às 20h</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Shopping -->
+            <div class="kiosk-info-row">
+              <div class="kiosk-info-icon">
+                <iconify-icon icon="solar:bag-heart-bold-duotone" style="font-size:1.15rem;"></iconify-icon>
+              </div>
+              <div>
+                <p class="kiosk-info-label">Shopping</p>
+                <p class="kiosk-info-value">Shopping Morumbi — Piso Superior</p>
+              </div>
+            </div>
+
+          </div>
+
+          <a
+            href="https://maps.google.com/?q=Av.+Roque+Petroni+J%C3%BAnior,+1089,+S%C3%A3o+Paulo"
+            target="_blank"
+            rel="noopener"
+            class="kiosk-maps-btn"
+          >
+            <iconify-icon icon="solar:map-point-bold-duotone" style="font-size:1rem;"></iconify-icon>
+            Ver no Google Maps
+          </a>
+
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="site-footer" id="siteFooter" role="contentinfo">
+
+    <!-- Ambient blobs -->
+    <div class="feat-glow" style="width:500px;height:300px;background:rgba(137,122,107,.07);bottom:0;right:-100px;"></div>
+    <div class="feat-glow" style="width:300px;height:300px;background:rgba(179,189,163,.05);top:0;left:-80px;"></div>
+
+    <div class="container" style="position:relative;z-index:2;">
+
+      <!-- Newsletter -->
+      <div class="footer-newsletter" data-reveal>
+        <div class="footer-nl-text">
+          <p class="footer-nl-title">Rituais que <em style="font-style:italic;font-weight:300;">renovam.</em></p>
+          <p class="footer-nl-sub">Receba novidades, dicas de beleza e ofertas exclusivas.</p>
+        </div>
+        <form class="footer-nl-form" onsubmit="return false;">
+          <input type="email" class="footer-nl-input" placeholder="seu@email.com.br" aria-label="E-mail para newsletter">
+          <button class="footer-nl-btn" type="submit">Assinar</button>
+        </form>
+      </div>
+
+      <!-- Main grid -->
+      <div class="footer-grid" data-reveal>
+
+        <!-- Brand -->
+        <div>
+          <div class="footer-brand-logo">
+            <a href="#"><img src="DS/assets/logo-miya-preta.png" alt="Miya Kea"></a>
+          </div>
+          <p class="footer-brand-tagline">Colágeno marinho premium e própolis nativo. Ciência e natureza para a sua melhor versão.</p>
+          <div class="footer-social">
+            <a href="#" class="footer-social-btn" aria-label="Instagram">
+              <iconify-icon icon="mdi:instagram" style="font-size:1.1rem;"></iconify-icon>
+            </a>
+            <a href="#" class="footer-social-btn" aria-label="TikTok">
+              <iconify-icon icon="solar:play-circle-bold-duotone" style="font-size:1.1rem;"></iconify-icon>
+            </a>
+            <a href="#" class="footer-social-btn" aria-label="YouTube">
+              <iconify-icon icon="mdi:youtube" style="font-size:1.1rem;"></iconify-icon>
+            </a>
+            <a href="#" class="footer-social-btn" aria-label="WhatsApp">
+              <iconify-icon icon="mdi:whatsapp" style="font-size:1.1rem;"></iconify-icon>
+            </a>
+          </div>
+        </div>
+
+        <!-- Produtos -->
+        <div>
+          <p class="footer-col-title">Produtos</p>
+          <div class="footer-links">
+            <a href="#">Colágeno Premium</a>
+            <a href="#">Skin &amp; Hair</a>
+            <a href="#">Joint Health</a>
+            <a href="#">
+              Própolis Vermelho
+              <span class="ft-new">Novo</span>
+            </a>
+            <a href="#">Ver todos</a>
+          </div>
+        </div>
+
+        <!-- Empresa -->
+        <div>
+          <p class="footer-col-title">Empresa</p>
+          <div class="footer-links">
+            <a href="#">Sobre a Miya Kea</a>
+            <a href="#">Nippi Collagen</a>
+            <a href="#">Clube de Assinatura</a>
+            <a href="#">Blog</a>
+            <a href="#">Contato</a>
+          </div>
+        </div>
+
+        <!-- Suporte -->
+        <div>
+          <p class="footer-col-title">Suporte</p>
+          <div class="footer-links">
+            <a href="#">Dúvidas Frequentes</a>
+            <a href="#">Rastrear Pedido</a>
+            <a href="#">Trocas e Devoluções</a>
+            <a href="#">Política de Privacidade</a>
+            <a href="#">Termos de Uso</a>
+          </div>
+        </div>
+
+      </div><!-- /footer-grid -->
+
+      <!-- Bottom bar -->
+      <div class="footer-bottom">
+        <p class="footer-copy">
+          &copy; 2025 Miya Kea. Todos os direitos reservados.
+          CNPJ 00.000.000/0001-00
+        </p>
+        <div class="footer-payments">
+          <span class="footer-payment-badge">Visa</span>
+          <span class="footer-payment-badge">Master</span>
+          <span class="footer-payment-badge">Pix</span>
+          <span class="footer-payment-badge">Boleto</span>
+          <span class="footer-payment-badge">Amex</span>
+        </div>
+      </div>
+
+    </div><!-- /container -->
+  </footer>
+
   <!-- Scripts -->
+
+  <script src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
   
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
